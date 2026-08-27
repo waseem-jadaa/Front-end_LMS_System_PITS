@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "نظام المكتبة",
+    "tagline": "نظام إدارة المعرفة"
+  },
+  "auth": {
+    "signin": {
+      "heading": "تسجيل الدخول إلى حسابك",
+      "subheading": "أهلاً بعودتك! الرجاء إدخال بيانات تسجيل الدخول."
+    },
+    "signup": {
+      "heading": "إنشاء حساب جديد",
+      "subheading": "انضم إلينا! أدخل بياناتك أدناه للبدء."
+    },
+    "fields": {
+      "emailOrUsername": "البريد الإلكتروني أو اسم المستخدم",
+      "emailOrUsernamePlaceholder": "أدخل بريدك الإلكتروني أو اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "أنشئ كلمة مرور قوية",
+      "currentPasswordPlaceholder": "············",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور",
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل اسمك الكامل",
+      "rememberMe": "تذكرني"
+    },
+    "links": {
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "newUser": "لا تمتلك حساباً؟",
+      "createAccount": "إنشاء حساب",
+      "existingUser": "لديك حساب بالفعل؟",
+      "signin": "تسجيل الدخول"
+    },
+    "buttons": {
+      "login": "دخول",
+      "loggingIn": "جارٍ تسجيل الدخول…",
+      "createAccount": "إنشاء الحساب",
+      "creatingAccount": "جارٍ الإنشاء…"
+    },
+    "validation": {
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "أدخل بريداً إلكترونياً صحيحاً",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "nameRequired": "الاسم الكامل مطلوب",
+      "passwordMin": "يجب أن تكون 8 أحرف على الأقل",
+      "confirmRequired": "يرجى تأكيد كلمة المرور",
+      "passwordsMismatch": "كلمتا المرور غير متطابقتين",
+      "passwordsMatch": "✓ كلمتا المرور متطابقتان"
+    },
+    "strength": {
+      "weak": "ضعيفة",
+      "fair": "مقبولة",
+      "good": "جيدة",
+      "strong": "قوية"
+    },
+    "messages": {
+      "loginSuccess": "تم تسجيل الدخول بنجاح!",
+      "loginFailed": "فشل تسجيل الدخول. يرجى التحقق من بياناتك.",
+      "registerSuccess": "تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.",
+      "registerFailed": "فشل إنشاء الحساب. يرجى المحاولة مرة أخرى."
+    }
+  }
+}

@@ -1,9 +1,9 @@
 <template>
-  <nav class="d-md-block sidebar text-white p-3 min-vh-100 shadow-sm" style="background-color: #2b1b17; border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-    <h5 class="text-center py-3 border-bottom border-secondary border-opacity-50 font-serif text-white tracking-wide" style="font-family: Georgia, serif; letter-spacing: 1px;">
+  <nav class="d-md-block sidebar text-white p-3 min-vh-100 shadow-sm sidebar-nav">
+    <h5 class="text-center py-3 border-bottom border-secondary border-opacity-50 font-serif text-white tracking-wide sidebar-title">
       Archive
     </h5>
-    
+
     <ul class="nav flex-column mt-4 gap-3">
       <li class="nav-item">
         <router-link to="/" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all">
@@ -30,6 +30,16 @@
 </template>
 
 <style scoped>
+.sidebar-nav {
+  background-color: #2b1b17;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.sidebar-title {
+  font-family: Georgia, serif;
+  letter-spacing: 1px;
+}
 
 .nav-link {
   background-color: transparent;
