@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../modules/dashboard/view/DashboardView.vue'
-import AuthView from '../modules/auth/view/AuthView.vue'
+import DashboardView from '../modules/Dashboard/view/DashboardView.vue'
+import AuthView from '../modules/Auth/view/AuthView.vue'
 
 const routes = [
   {
