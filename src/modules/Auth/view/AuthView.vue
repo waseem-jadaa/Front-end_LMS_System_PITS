@@ -227,7 +227,7 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import authService from '../services/authService'
+import { useAuthStore } from '../store/authStore'
 
 import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n()
@@ -250,6 +250,7 @@ import checkCircleSvg from '../../../assets/icons/check-circle.svg'
 import alertCircleSvg from '../../../assets/icons/alert-circle.svg'
 
 const router = useRouter()
+const authStore = useAuthStore()
 
 const activeTab = ref('signin')
 function switchTab(tab) { activeTab.value = tab; dismissAlert(); clearErrors() }
@@ -317,9 +318,7 @@ async function handleSignIn() {
   if (!validateSignIn()) return
   dismissAlert(); signInLoading.value = true
   try {
-    const data = await authService.login({ email: signIn.email, password: signIn.password })
-    if (data.data?.token) localStorage.setItem('auth_token', data.data.token)
-    if (data.data?.user)  localStorage.setItem('auth_user',  JSON.stringify(data.data.user))
+    const data = await authStore.login({ email: signIn.email, password: signIn.password })
     showAlert('success', data.message || t('auth.messages.loginSuccess'))
     setTimeout(() => router.push({ name: 'dashboard' }), 900)
   } catch (err) {
@@ -334,7 +333,7 @@ async function handleSignUp() {
   if (!validateSignUp()) return
   dismissAlert(); signUpLoading.value = true
   try {
-    const data = await authService.register({ name: signUp.name, email: signUp.email, password: signUp.password, password_confirmation: signUp.password_confirmation })
+    const data = await authStore.register({ name: signUp.name, email: signUp.email, password: signUp.password, password_confirmation: signUp.password_confirmation })
     showAlert('success', data.message || t('auth.messages.registerSuccess'))
     Object.assign(signUp, { name: '', email: '', password: '', password_confirmation: '' })
     setTimeout(() => switchTab('signin'), 1600)
