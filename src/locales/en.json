@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "Library System",
+    "tagline": "Knowledge Management System"
+  },
+  "auth": {
+    "signin": {
+      "heading": "Login to your Account",
+      "subheading": "Welcome back! Please enter your credentials."
+    },
+    "signup": {
+      "heading": "Create your Account",
+      "subheading": "Join us! Fill in the details below to get started."
+    },
+    "fields": {
+      "emailOrUsername": "Email or Username",
+      "emailOrUsernamePlaceholder": "Enter your email or username",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Create a strong password",
+      "currentPasswordPlaceholder": "············",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "rememberMe": "Remember Me"
+    },
+    "links": {
+      "forgotPassword": "Forgot Password?",
+      "newUser": "New on our platform?",
+      "createAccount": "Create an account",
+      "existingUser": "Already have an account?",
+      "signin": "Sign in"
+    },
+    "buttons": {
+      "login": "Login",
+      "loggingIn": "Signing in…",
+      "createAccount": "Create Account",
+      "creatingAccount": "Creating account…"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "passwordRequired": "Password is required",
+      "nameRequired": "Full name is required",
+      "passwordMin": "Must be at least 8 characters",
+      "confirmRequired": "Please confirm your password",
+      "passwordsMismatch": "Passwords do not match",
+      "passwordsMatch": "✓ Passwords match"
+    },
+    "strength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    },
+    "messages": {
+      "loginSuccess": "Logged in successfully!",
+      "loginFailed": "Login failed. Please check your credentials.",
+      "registerSuccess": "Account created successfully! You can now log in.",
+      "registerFailed": "Registration failed. Please try again."
+    }
+  }
+}
