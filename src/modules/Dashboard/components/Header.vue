@@ -59,25 +59,27 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '../../Auth/store/authStore'
 import searchIcon from '../../../assets/icons/search.svg'
 import langIcon from '../../../assets/icons/language.svg'
 import notifIcon from '../../../assets/icons/notifications.svg'
 
 const router = useRouter()
+const authStore = useAuthStore()
 
-const currentUser = ref({
-  name: 'Waseem Jadaa',
-  email: 'admin@daralhikma.com'
-})
+const currentUser = computed(() => ({
+  name:  authStore.user?.name  ?? 'User',
+  email: authStore.user?.email ?? ''
+}))
 
 const userInitial = computed(() => {
   return currentUser.value.name ? currentUser.value.name.charAt(0).toUpperCase() : 'U'
 })
 
-const handleLogout = () => {
-  localStorage.removeItem('auth_token')
+const handleLogout = async () => {
+  await authStore.logout()
   router.push('/auth')
 }
 </script>

@@ -42,11 +42,19 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  function logout() {
-    user.value  = null
-    token.value = null
-    localStorage.removeItem(AUTH_TOKEN_KEY)
-    localStorage.removeItem(AUTH_USER_KEY)
+  async function logout() {
+    loading.value = true
+    try {
+      await authService.logout()
+    } catch (err) {
+      console.error('Logout request failed:', err)
+    } finally {
+      user.value  = null
+      token.value = null
+      localStorage.removeItem(AUTH_TOKEN_KEY)
+      localStorage.removeItem(AUTH_USER_KEY)
+      loading.value = false
+    }
   }
 
   function _persist(res) {

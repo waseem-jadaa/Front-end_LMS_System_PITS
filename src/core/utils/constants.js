@@ -6,5 +6,5 @@ export const LANG_KEY       = 'lms_lang'
 export const API_ROUTES = Object.freeze({
   LOGIN:    '/login',
   REGISTER: '/register',
-  USERS:    '/users'
+  LOGOUT:   '/logout'
 })
