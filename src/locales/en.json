@@ -61,5 +61,38 @@
       "registerSuccess": "Account created successfully! You can now log in.",
       "registerFailed": "Registration failed. Please try again."
     }
+  },
+  "dashboard": {
+    "sidebar": {
+      "title": "Archive",
+      "home": "Home",
+      "books": "Books",
+      "members": "Members",
+      "borrowings": "Borrowings",
+      "collapse": "Collapse sidebar",
+      "expand": "Expand sidebar"
+    },
+    "header": {
+      "searchPlaceholder": "Find a book, author, or ancient manuscript...",
+      "changeLanguage": "Change language",
+      "notifications": "Notifications",
+      "logout": "Logout"
+    },
+    "hero": {
+      "badge": "Overview",
+      "title": "Welcome to the Halls of Knowledge",
+      "text": "Manage the archive of books and manuscripts, track member borrowings, and document the flow of knowledge with ease and precision, within an environment uniquely designed in a classic heritage style.",
+      "totalBooks": "Total Books",
+      "activeMembers": "Active Members"
+    },
+    "sections": {
+      "featured": "Selected Publications and Manuscripts"
+    },
+    "bookCard": {
+      "placeholder": "Book"
+    },
+    "footer": {
+      "text": "Dar Al-Hikma Digital Library © 2026 - An Ancient Heritage with a Modern Vision"
+    }
   }
 }

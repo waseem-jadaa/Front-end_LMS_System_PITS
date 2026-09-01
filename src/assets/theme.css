@@ -1,0 +1,17 @@
+:root {
+  --bg-page:     #FDFBF7;
+  --bg-card:     #FFFFFF;
+  --navy:        #1A2E40;
+  --navy-hover:  #152433;
+  --sage:        #607A66;
+  --wood:        #4A3728;
+  --text-body:   #2B2B2B;
+  --text-muted:  #6C757D;
+  --gold:        #D4AF37;
+  --gold-tint:   #F4EBE1;
+  --mustard:     #E5A93B;
+  --burgundy:    #800020;
+  --border:      #D8CFC6;
+  --input-focus: rgba(26, 46, 64, 0.18);
+  --shadow-card: 0 20px 60px rgba(26, 46, 64, 0.14), 0 4px 16px rgba(0, 0, 0, 0.06);
+}
