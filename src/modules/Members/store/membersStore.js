@@ -41,6 +41,21 @@ export const useMembersStore = defineStore('members', () => {
     }
   }
 
+  async function createMember(payload) {
+    saving.value = true; error.value = null
+    try {
+      const res = await membersService.store(payload)
+      const created = extractRecord(res)?.member ?? extractRecord(res)
+      members.value.unshift(created)
+      return created
+    } catch (err) {
+      error.value = err?.response?.data?.message || err.message
+      throw err
+    } finally {
+      saving.value = false
+    }
+  }
+
   async function updateMember(id, payload) {
     saving.value = true; error.value = null
     try {
@@ -72,6 +87,6 @@ export const useMembersStore = defineStore('members', () => {
 
   return {
     members, currentMember, meta, loading, saving, deleting, error,
-    fetchMembers, fetchMember, updateMember, deleteMember
+    fetchMembers, fetchMember, createMember, updateMember, deleteMember
   }
 })

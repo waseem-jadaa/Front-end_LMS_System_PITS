@@ -7,10 +7,15 @@
 
       <div class="flex-grow-1 p-3 p-md-4" dir="ltr">
 
-        <div class="p-3 p-md-4 rounded-4 shadow-sm mb-4 hero-card" :dir="dir">
-          <span class="badge mb-2 text-dark hero-badge">{{ t('borrowings.hero.badge') }}</span>
-          <h1 class="fw-bold font-serif mb-2 hero-title">{{ isAdmin ? t('borrowings.hero.titleAdmin') : t('borrowings.hero.titleMember') }}</h1>
-          <p class="text-secondary mb-0 hero-text">{{ isAdmin ? t('borrowings.hero.textAdmin') : t('borrowings.hero.textMember') }}</p>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 p-3 p-md-4 rounded-4 shadow-sm mb-4 hero-card" :dir="dir">
+          <div>
+            <span class="badge mb-2 text-dark hero-badge">{{ t('borrowings.hero.badge') }}</span>
+            <h1 class="fw-bold font-serif mb-2 hero-title">{{ isAdmin ? t('borrowings.hero.titleAdmin') : t('borrowings.hero.titleMember') }}</h1>
+            <p class="text-secondary mb-0 hero-text">{{ isAdmin ? t('borrowings.hero.textAdmin') : t('borrowings.hero.textMember') }}</p>
+          </div>
+          <BaseButton v-if="isAdmin" class="btn-add-member" variant="warning" @click="openAddMemberModal">
+            <img :src="plusIcon" alt="" width="18" height="18" class="me-2" />{{ t('borrowings.actions.addMember') }}
+          </BaseButton>
         </div>
 
         <transition name="alert-fade">
@@ -127,6 +132,13 @@
       @saved="handleEditSaved"
     />
 
+    <MemberFormModal
+      :show="addMemberModal.show"
+      mode="create"
+      @close="closeAddMemberModal"
+      @saved="handleMemberSaved"
+    />
+
     <ConfirmModal
       :show="confirmState.show"
       :title="confirmState.type === 'return' ? t('borrowings.return.title') : t('borrowings.delete.title')"
@@ -154,9 +166,11 @@ import { useAuthStore } from '@/modules/Auth/store/authStore'
 import BorrowingRow from '../components/BorrowingRow.vue'
 import BorrowingCard from '../components/BorrowingCard.vue'
 import BorrowingEditModal from '../components/BorrowingEditModal.vue'
+import MemberFormModal from '@/modules/Members/components/MemberFormModal.vue'
 import { useBorrowingsStore } from '../store/borrowingsStore'
 import { getBookTitle, getStatus } from '../utils/borrowingHelpers'
 import bookIcon        from '../../../assets/icons/book.svg'
+import plusIcon        from '../../../assets/icons/user-plus.svg'
 import alertIcon       from '../../../assets/icons/alert-circle.svg'
 import checkCircleIcon from '../../../assets/icons/check-circle.svg'
 
@@ -205,6 +219,17 @@ function closeEditModal() {
 }
 function handleEditSaved() {
   showPageAlert('success', t('borrowings.form.messages.updateSuccess'))
+}
+
+const addMemberModal = reactive({ show: false })
+function openAddMemberModal() {
+  addMemberModal.show = true
+}
+function closeAddMemberModal() {
+  addMemberModal.show = false
+}
+function handleMemberSaved() {
+  showPageAlert('success', t('members.form.messages.createSuccess'))
 }
 
 const confirmState = reactive({ show: false, type: 'delete', borrowing: null })
@@ -293,6 +318,18 @@ onMounted(() => loadBorrowings(1))
 .hero-text {
   line-height: 1.8;
   max-width: 640px;
+}
+
+.btn-add-member {
+  background: var(--mustard);
+  color: var(--navy);
+  border: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-add-member:hover:not(:disabled) {
+  background: var(--gold);
 }
 
 .btn-tab {

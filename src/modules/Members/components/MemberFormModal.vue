@@ -82,9 +82,14 @@ const props = defineProps({
 const emit = defineEmits(['close', 'saved'])
 
 const localMode = ref(props.mode)
-const isViewMode = computed(() => localMode.value === 'view')
+const isCreateMode = computed(() => localMode.value === 'create')
+const isViewMode   = computed(() => localMode.value === 'view')
 
-const modalTitle = computed(() => isViewMode.value ? t('members.form.viewTitle') : t('members.form.editTitle'))
+const modalTitle = computed(() => {
+  if (isCreateMode.value) return t('members.form.createTitle')
+  if (isViewMode.value)   return t('members.form.viewTitle')
+  return t('members.form.editTitle')
+})
 
 const form   = reactive({ name: '', email: '' })
 const errors = reactive({ name: '', email: '' })
@@ -131,11 +136,14 @@ async function handleSubmit() {
   generalError.value = ''
   try {
     const payload = { name: form.name.trim(), email: form.email.trim() }
-    const result = await membersStore.updateMember(props.member.id, payload)
+    const result = isCreateMode.value
+      ? await membersStore.createMember(payload)
+      : await membersStore.updateMember(props.member.id, payload)
     emit('saved', { mode: localMode.value, member: result })
     emit('close')
   } catch (err) {
-    generalError.value = err?.response?.data?.message || t('members.form.messages.updateFailed')
+    const fallback = isCreateMode.value ? t('members.form.messages.createFailed') : t('members.form.messages.updateFailed')
+    generalError.value = err?.response?.data?.message || fallback
     const serverErrors = err?.response?.data?.errors
     if (serverErrors) {
       Object.entries(serverErrors).forEach(([field, msg]) => {
