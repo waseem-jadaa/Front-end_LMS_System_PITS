@@ -6,37 +6,30 @@
     id="sidebarOffcanvas"
   >
     <div class="offcanvas-header d-md-none border-bottom border-secondary border-opacity-25">
-      <h5 class="offcanvas-title font-serif text-white m-2" :dir="dir">{{ t('dashboard.sidebar.title') }}</h5>
-      <div class="d-flex align-items-center gap-3">
-        <div class="d-flex align-items-center gap-2 mobile-header-actions">
-          <div class="dropdown">
-            <button
-              class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center mobile-icon-btn"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              :title="t('dashboard.header.changeLanguage')"
-            >
-              <img :src="langIcon" alt="" width="18" height="18" />
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 lang-dropdown-menu" :dir="dir">
-              <li>
-                <button type="button" class="dropdown-item" :class="{ active: locale === 'en' }" @click="setLocale('en')">
-                  English
-                </button>
-              </li>
-              <li>
-                <button type="button" class="dropdown-item" :class="{ active: locale === 'ar' }" @click="setLocale('ar')">
-                  العربية
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center position-relative mobile-icon-btn" :title="t('dashboard.header.notifications')">
-            <img :src="notifIcon" alt="" width="18" height="18" />
-            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+      <h5 class="offcanvas-title font-serif text-white m-2 " :dir="dir">{{ t('dashboard.sidebar.title') }}</h5>
+      <div class="d-flex align-items-center gap-4 m-2">
+        <div class="dropdown">
+          <button
+            class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center mobile-icon-btn"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            :title="t('dashboard.header.changeLanguage')"
+          >
+            <img :src="langIcon" alt="" width="18" height="18" />
           </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 lang-dropdown-menu" :dir="dir">
+            <li>
+              <button type="button" class="dropdown-item" :class="{ active: locale === 'en' }" @click="setLocale('en')">
+                English
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" :class="{ active: locale === 'ar' }" @click="setLocale('ar')">
+                العربية
+              </button>
+            </li>
+          </ul>
         </div>
 
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Close"></button>
@@ -69,12 +62,12 @@
             <img :src="bookIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.books') }}</span>
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="authStore.isAdmin">
           <router-link to="/members" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.members') : null">
             <img :src="usersIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.members') }}</span>
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!authStore.isGuest">
           <router-link to="/borrowings" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.borrowings') : null">
             <img :src="fileTextIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.borrowings') }}</span>
           </router-link>
@@ -87,17 +80,18 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '../../Auth/store/authStore'
 import homeIcon      from '../../../assets/icons/home.svg'
 import bookIcon       from '../../../assets/icons/book.svg'
 import usersIcon      from '../../../assets/icons/users.svg'
 import fileTextIcon   from '../../../assets/icons/file-text.svg'
 import chevronIcon    from '../../../assets/icons/chevron-left.svg'
 import langIcon       from '../../../assets/icons/language.svg'
-import notifIcon      from '../../../assets/icons/notifications.svg'
 
 const { t, locale } = useI18n()
 const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
 const collapsed = ref(false)
+const authStore = useAuthStore()
 
 function setLocale(lang) {
   locale.value = lang
@@ -155,11 +149,6 @@ function setLocale(lang) {
 
 .mobile-icon-btn img {
   filter: brightness(0) invert(1);
-}
-
-.mobile-header-actions {
-  padding-inline-end: 1rem;
-  border-inline-end: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .mobile-icon-btn:hover {

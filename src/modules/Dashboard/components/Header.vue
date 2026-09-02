@@ -56,11 +56,6 @@
           </ul>
         </div>
 
-        <button class="btn p-2 rounded-circle border-0 d-none d-md-flex align-items-center justify-content-center position-relative icon-btn" :title="t('dashboard.header.notifications')">
-          <img :src="notifIcon" alt="" width="20" height="20" />
-          <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-        </button>
-
         <div class="dropdown border-start ps-2 ps-md-3 border-secondary border-opacity-25">
           <button class="btn border-0 p-0 d-flex align-items-center gap-2 user-dropdown-toggle shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="avatar-sm rounded-circle d-flex align-items-center justify-content-center fw-bold">
@@ -99,7 +94,6 @@ import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '../../Auth/store/authStore'
 import searchIcon from '../../../assets/icons/search.svg'
 import langIcon from '../../../assets/icons/language.svg'
-import notifIcon from '../../../assets/icons/notifications.svg'
 import menuIcon from '../../../assets/icons/menu.svg'
 
 const { t, locale } = useI18n()

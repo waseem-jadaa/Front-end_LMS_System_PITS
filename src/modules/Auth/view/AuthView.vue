@@ -208,6 +208,17 @@
           </form>
         </transition>
 
+        <div class="guest-divider d-flex align-items-center gap-3 my-4">
+          <span class="guest-divider-line"></span>
+          <span class="small text-muted">{{ t('auth.links.orDivider') }}</span>
+          <span class="guest-divider-line"></span>
+        </div>
+
+        <button type="button" class="btn-guest w-100 rounded-3 fw-semibold d-flex align-items-center justify-content-center gap-2" @click="handleGuestLogin">
+          <img :src="loginSvg" alt="" width="16" height="16" />
+          <span>{{ t('auth.buttons.guestLogin') }}</span>
+        </button>
+
         <p class="switch-link text-center mt-4 mb-0 small">
           <template v-if="activeTab === 'signin'">
             {{ t('auth.links.newUser') }}&nbsp;
@@ -248,6 +259,7 @@ import userSvg        from '../../../assets/icons/user.svg'
 import shieldCheckSvg from '../../../assets/icons/shield-check.svg'
 import checkCircleSvg from '../../../assets/icons/check-circle.svg'
 import alertCircleSvg from '../../../assets/icons/alert-circle.svg'
+import loginSvg       from '../../../assets/icons/login.svg'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -343,6 +355,11 @@ async function handleSignUp() {
     if (errors) Object.entries(errors).forEach(([f, m]) => { if (f in signUpErrors) signUpErrors[f] = Array.isArray(m) ? m[0] : m })
     showAlert('error', msg)
   } finally { signUpLoading.value = false }
+}
+
+function handleGuestLogin() {
+  authStore.loginAsGuest()
+  router.push({ name: 'dashboard' })
 }
 </script>
 
@@ -549,6 +566,26 @@ async function handleSignUp() {
   box-shadow: 0 2px 8px rgba(212,175,55,0.3);
 }
 .btn-auth-submit:disabled { opacity: 0.65; cursor: not-allowed; }
+
+.guest-divider-line { flex: 1; height: 1px; background: var(--border); }
+
+.btn-guest {
+  height: 44px;
+  background: #fff;
+  color: var(--navy);
+  border: 1.5px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.btn-guest:hover {
+  background: var(--bg-page);
+  border-color: var(--navy);
+  transform: translateY(-1px);
+}
+.btn-guest:active { transform: translateY(0); }
+.btn-guest img { opacity: 0.7; }
 
 .strength-wrap { display: flex; align-items: center; }
 .strength-seg { height: 4px; flex: 1; border-radius: 99px; background: #E8E2DC; transition: background 0.3s; }

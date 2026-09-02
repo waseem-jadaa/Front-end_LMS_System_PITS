@@ -31,13 +31,15 @@
       "newUser": "New on our platform?",
       "createAccount": "Create an account",
       "existingUser": "Already have an account?",
-      "signin": "Sign in"
+      "signin": "Sign in",
+      "orDivider": "or"
     },
     "buttons": {
       "login": "Login",
       "loggingIn": "Signing in…",
       "createAccount": "Create Account",
-      "creatingAccount": "Creating account…"
+      "creatingAccount": "Creating account…",
+      "guestLogin": "Login as Guest"
     },
     "validation": {
       "emailRequired": "Email is required",
@@ -75,7 +77,6 @@
     "header": {
       "searchPlaceholder": "Find a book, author, or ancient manuscript...",
       "changeLanguage": "Change language",
-      "notifications": "Notifications",
       "logout": "Logout"
     },
     "hero": {
@@ -93,6 +94,267 @@
     },
     "footer": {
       "text": "Dar Al-Hikma Digital Library © 2026 - An Ancient Heritage with a Modern Vision"
+    }
+  },
+  "members": {
+    "hero": {
+      "badge": "Directory",
+      "title": "Members of the Archive",
+      "text": "Browse and manage the members registered in the library, and keep their records accurate and up to date."
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "search": {
+      "placeholder": "Search members by name or email..."
+    },
+    "table": {
+      "member": "Member",
+      "email": "Email",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No members yet",
+      "text": "Members will appear here once they register.",
+      "titleFiltered": "No matching members",
+      "textFiltered": "Try a different name or email search."
+    },
+    "error": {
+      "loadFailed": "Failed to load members. Please try again.",
+      "retry": "Retry"
+    },
+    "form": {
+      "editTitle": "Edit Member",
+      "viewTitle": "Member Details",
+      "fields": {
+        "name": "Full Name",
+        "namePlaceholder": "Enter member's full name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter member's email"
+      },
+      "validation": {
+        "nameRequired": "Full name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email address"
+      },
+      "messages": {
+        "updateSuccess": "Member updated successfully.",
+        "updateFailed": "Failed to update member. Please try again."
+      }
+    },
+    "delete": {
+      "title": "Delete Member",
+      "message": "Are you sure you want to delete {name}? This action cannot be undone.",
+      "confirm": "Delete",
+      "success": "Member deleted successfully.",
+      "failed": "Failed to delete member. Please try again."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {current} of {total}"
+    }
+  },
+  "books": {
+    "hero": {
+      "badge": "Catalog",
+      "title": "Books of the Archive",
+      "text": "Browse and search the library's collection of books and manuscripts."
+    },
+    "stats": {
+      "total": "Total Books",
+      "available": "Available",
+      "borrowed": "Borrowed"
+    },
+    "card": {
+      "placeholder": "Book",
+      "deleted": "Deleted",
+      "available": "Available",
+      "unavailable": "Unavailable"
+    },
+    "actions": {
+      "add": "Add Book",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "restore": "Restore",
+      "history": "History",
+      "borrow": "Borrow",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "search": {
+      "placeholder": "Search books by title, author, or category..."
+    },
+    "tabs": {
+      "active": "Active",
+      "deleted": "Deleted"
+    },
+    "empty": {
+      "title": "No books yet",
+      "text": "Add your first book to start building the catalog.",
+      "titleFiltered": "No matching books",
+      "textFiltered": "Try a different search.",
+      "titleDeleted": "No deleted books",
+      "textDeleted": "Books you delete will show up here for restoring."
+    },
+    "error": {
+      "loadFailed": "Failed to load books. Please try again.",
+      "retry": "Retry"
+    },
+    "form": {
+      "createTitle": "Add New Book",
+      "editTitle": "Edit Book",
+      "viewTitle": "Book Details",
+      "fields": {
+        "title": "Title",
+        "titlePlaceholder": "Enter the book's title",
+        "author": "Author",
+        "authorPlaceholder": "Enter the author's name",
+        "category": "Category",
+        "categoryPlaceholder": "Enter the book's category",
+        "publishYear": "Publish Year",
+        "publishYearPlaceholder": "Enter the publish year"
+      },
+      "validation": {
+        "titleRequired": "Title is required",
+        "authorRequired": "Author is required",
+        "categoryRequired": "Category is required",
+        "yearRequired": "Publish year is required",
+        "yearInvalid": "Enter a valid publish year"
+      },
+      "messages": {
+        "createSuccess": "Book added successfully.",
+        "createFailed": "Failed to add book. Please try again.",
+        "updateSuccess": "Book updated successfully.",
+        "updateFailed": "Failed to update book. Please try again."
+      }
+    },
+    "delete": {
+      "title": "Delete Book",
+      "message": "Are you sure you want to delete \"{title}\"? You can restore it later from the Deleted tab.",
+      "confirm": "Delete",
+      "success": "Book deleted successfully.",
+      "failed": "Failed to delete book. Please try again."
+    },
+    "restore": {
+      "title": "Restore Book",
+      "message": "Restore \"{title}\" back to the active catalog?",
+      "confirm": "Restore",
+      "success": "Book restored successfully.",
+      "failed": "Failed to restore book. Please try again."
+    },
+    "borrow": {
+      "success": "Book borrowed successfully.",
+      "failed": "Failed to borrow this book. Please try again."
+    },
+    "history": {
+      "title": "Book History",
+      "empty": "No activity recorded for this book yet.",
+      "unknownAction": "Activity",
+      "someone": "Someone",
+      "events": {
+        "created": "Created",
+        "updated": "Updated",
+        "deleted": "Deleted",
+        "restored": "Restored"
+      }
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {current} of {total}"
+    }
+  },
+  "borrowings": {
+    "hero": {
+      "badge": "Borrowings",
+      "titleAdmin": "All Borrowings",
+      "titleMember": "My Borrowings",
+      "textAdmin": "Track every borrowing across the library, adjust due dates, and keep an eye on overdue returns.",
+      "textMember": "Books you've borrowed, their due dates, and your return history."
+    },
+    "tabs": {
+      "all": "All",
+      "active": "Active",
+      "overdue": "Overdue",
+      "returned": "Returned"
+    },
+    "status": {
+      "active": "Active",
+      "overdue": "Overdue",
+      "returned": "Returned"
+    },
+    "table": {
+      "book": "Book",
+      "member": "Member",
+      "borrowed": "Borrowed",
+      "due": "Due",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit due date",
+      "delete": "Delete",
+      "return": "Return",
+      "borrowAgain": "Borrow again",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "close": "Close"
+    },
+    "error": {
+      "loadFailed": "Failed to load borrowings. Please try again.",
+      "retry": "Retry"
+    },
+    "empty": {
+      "title": "No borrowings yet",
+      "textAdmin": "Borrowing activity will show up here once members start borrowing books.",
+      "textMember": "Books you borrow will show up here."
+    },
+    "form": {
+      "editTitle": "Update Due Date",
+      "fields": {
+        "dueDate": "Due Date"
+      },
+      "validation": {
+        "dueDateRequired": "Due date is required"
+      },
+      "messages": {
+        "updateSuccess": "Borrowing updated successfully.",
+        "updateFailed": "Failed to update borrowing. Please try again."
+      }
+    },
+    "delete": {
+      "title": "Delete Borrowing",
+      "message": "Are you sure you want to delete the borrowing record for \"{title}\"?",
+      "confirm": "Delete",
+      "success": "Borrowing deleted successfully.",
+      "failed": "Failed to delete borrowing. Please try again."
+    },
+    "return": {
+      "title": "Return Book",
+      "message": "Mark \"{title}\" as returned?",
+      "confirm": "Return",
+      "success": "Book returned successfully.",
+      "failed": "Failed to return book. Please try again."
+    },
+    "borrowAgain": {
+      "success": "Book borrowed again successfully.",
+      "failed": "Failed to borrow this book again. Please try again."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {current} of {total}"
     }
   }
 }

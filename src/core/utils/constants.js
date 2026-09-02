@@ -4,7 +4,21 @@ export const AUTH_USER_KEY  = 'auth_user'
 export const LANG_KEY       = 'lms_lang'
 
 export const API_ROUTES = Object.freeze({
-  LOGIN:    '/login',
-  REGISTER: '/register',
-  LOGOUT:   '/logout'
+  LOGIN:      '/login',
+  REGISTER:   '/register',
+  LOGOUT:     '/logout',
+  MEMBERS:    '/members',
+  BOOKS:      '/books',
+  BORROWINGS: '/borrowings'
+})
+
+export const ROLES = Object.freeze({
+  ADMIN:  'admin',
+  MEMBER: 'member',
+  GUEST:  'guest'
+})
+
+export const GUEST_USER = Object.freeze({
+  name: 'Guest',
+  role: ROLES.GUEST
 })
