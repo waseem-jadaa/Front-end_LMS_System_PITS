@@ -95,6 +95,7 @@
               @delete="openDeleteConfirm"
               @restore="openRestoreConfirm"
               @history="openHistoryModal"
+              @borrow="handleBorrow"
             />
           </div>
         </div>
@@ -156,11 +157,13 @@ import Footer from '../../Dashboard/components/Footer.vue'
 import BaseInput from '@/core/components/BaseInput.vue'
 import BaseButton from '@/core/components/BaseButton.vue'
 import ConfirmModal from '@/core/components/ConfirmModal.vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/Auth/store/authStore'
 import BookCard from '../components/BookCard.vue'
 import BookFormModal from '../components/BookFormModal.vue'
 import BookHistoryModal from '../components/BookHistoryModal.vue'
 import { useBooksStore } from '../store/booksStore'
+import { useBorrowingsStore } from '@/modules/Borrowings/store/borrowingsStore'
 import { debounce } from '@/core/utils/helpers'
 import searchIcon      from '../../../assets/icons/search.svg'
 import plusIcon        from '../../../assets/icons/user-plus.svg'
@@ -170,9 +173,11 @@ import checkCircleIcon from '../../../assets/icons/check-circle.svg'
 
 const { t, locale } = useI18n()
 const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
+const router = useRouter()
 const authStore = useAuthStore()
 const isAdmin = computed(() => authStore.isAdmin)
 const store = useBooksStore()
+const borrowingsStore = useBorrowingsStore()
 
 const searchQuery = ref('')
 const showDeleted = ref(false)
@@ -255,6 +260,20 @@ function openHistoryModal(book) {
 function closeHistoryModal() {
   historyModal.show = false
   historyModal.book = null
+}
+
+async function handleBorrow(book) {
+  if (authStore.isGuest) {
+    router.push({ name: 'auth' })
+    return
+  }
+  try {
+    await borrowingsStore.createBorrowing({ book_id: book.id })
+    showPageAlert('success', t('books.borrow.success'))
+    loadBooks()
+  } catch {
+    showPageAlert('error', t('books.borrow.failed'))
+  }
 }
 
 const confirmState = reactive({ show: false, type: 'delete', book: null })

@@ -3,6 +3,7 @@ import DashboardView from '../modules/Dashboard/view/DashboardView.vue'
 import AuthView from '../modules/Auth/view/AuthView.vue'
 import MembersView from '../modules/Members/view/MembersView.vue'
 import BooksView from '../modules/Books/view/BooksView.vue'
+import BorrowingsView from '../modules/Borrowings/view/BorrowingsView.vue'
 import { useAuthStore } from '../modules/Auth/store/authStore'
 import { ROLES } from '../core/utils/constants'
 
@@ -30,6 +31,12 @@ const routes = [
     name: 'books',
     component: BooksView,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/borrowings',
+    name: 'borrowings',
+    component: BorrowingsView,
+    meta: { requiresAuth: true, roles: [ROLES.ADMIN, ROLES.MEMBER] }
   }
 ]
 
@@ -45,7 +52,7 @@ router.beforeEach((to) => {
     return { name: 'auth' }
   }
 
-  if (to.meta.guestOnly && authStore.isAuthenticated) {
+  if (to.meta.guestOnly && authStore.isAuthenticated && !authStore.isGuest) {
     return { name: 'dashboard' }
   }
 

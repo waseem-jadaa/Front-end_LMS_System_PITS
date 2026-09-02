@@ -4,11 +4,12 @@ export const AUTH_USER_KEY  = 'auth_user'
 export const LANG_KEY       = 'lms_lang'
 
 export const API_ROUTES = Object.freeze({
-  LOGIN:    '/login',
-  REGISTER: '/register',
-  LOGOUT:   '/logout',
-  MEMBERS:  '/members',
-  BOOKS:    '/books'
+  LOGIN:      '/login',
+  REGISTER:   '/register',
+  LOGOUT:     '/logout',
+  MEMBERS:    '/members',
+  BOOKS:      '/books',
+  BORROWINGS: '/borrowings'
 })
 
 export const ROLES = Object.freeze({

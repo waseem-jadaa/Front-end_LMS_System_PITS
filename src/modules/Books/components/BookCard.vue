@@ -17,7 +17,16 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-end gap-2 mt-3 pt-2 book-actions">
+    <div class="d-flex align-items-center justify-content-end gap-2 mt-3 pt-2 book-actions">
+      <button
+        v-if="!isAdmin && !isDeletedView && isAvailable"
+        type="button"
+        class="btn btn-borrow d-flex align-items-center gap-2 rounded-3 fw-semibold me-auto"
+        @click="$emit('borrow', book)"
+      >
+        <img :src="borrowIcon" alt="" width="15" height="15" />{{ t('books.actions.borrow') }}
+      </button>
+
       <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('books.actions.view')" @click="$emit('view', book)">
         <img :src="eyeIcon" alt="" width="16" height="16" />
       </button>
@@ -54,6 +63,7 @@ import editIcon     from '../../../assets/icons/edit-2.svg'
 import trashIcon    from '../../../assets/icons/trash-2.svg'
 import historyIcon  from '../../../assets/icons/file-text.svg'
 import restoreIcon  from '../../../assets/icons/login.svg'
+import borrowIcon   from '../../../assets/icons/book-open.svg'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
@@ -64,7 +74,7 @@ const props = defineProps({
   isDeletedView: { type: Boolean, default: false }
 })
 
-defineEmits(['view', 'edit', 'delete', 'restore', 'history'])
+defineEmits(['view', 'edit', 'delete', 'restore', 'history', 'borrow'])
 
 const isAvailable = computed(() => !!Number(props.book.is_available))
 </script>
@@ -118,6 +128,19 @@ const isAvailable = computed(() => !!Number(props.book.is_available))
 
 .book-actions {
   border-top: 1px solid var(--border);
+}
+
+.btn-borrow {
+  background: var(--mustard);
+  color: var(--navy);
+  border: none;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.75rem;
+  transition: background 0.2s;
+}
+
+.btn-borrow:hover {
+  background: var(--gold);
 }
 
 .row-icon-btn {
