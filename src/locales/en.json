@@ -62,6 +62,31 @@
       "loginFailed": "Login failed. Please check your credentials.",
       "registerSuccess": "Account created successfully! You can now log in.",
       "registerFailed": "Registration failed. Please try again."
+    },
+    "forgotPassword": {
+      "heading": "Forgot your password?",
+      "subheading": "Enter the email address linked to your account and we'll send you a link to reset your password.",
+      "button": "Send Reset Link",
+      "sending": "Sending…",
+      "failed": "Something went wrong. Please try again.",
+      "checkEmailHeading": "Check your email",
+      "checkEmailText": "We've sent password reset instructions to {email}.",
+      "resendLink": "Didn't get it? Try again",
+      "backToLogin": "Back to login"
+    },
+    "resetPassword": {
+      "heading": "Reset your password",
+      "subheading": "Choose a new password for your account.",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter a new password",
+      "button": "Reset Password",
+      "resetting": "Resetting…",
+      "success": "Your password has been reset successfully. You can now log in.",
+      "failed": "Failed to reset password. Please try again.",
+      "invalidLinkHeading": "Invalid or expired link",
+      "invalidLinkText": "This password reset link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request a new link",
+      "backToLogin": "Back to login"
     }
   },
   "dashboard": {

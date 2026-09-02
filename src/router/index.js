@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../modules/Dashboard/view/DashboardView.vue'
 import AuthView from '../modules/Auth/view/AuthView.vue'
+import ForgotPasswordView from '../modules/Auth/view/ForgotPasswordView.vue'
+import ResetPasswordView from '../modules/Auth/view/ResetPasswordView.vue'
 import MembersView from '../modules/Members/view/MembersView.vue'
 import BooksView from '../modules/Books/view/BooksView.vue'
 import BorrowingsView from '../modules/Borrowings/view/BorrowingsView.vue'
@@ -12,6 +14,18 @@ const routes = [
     path: '/auth',
     name: 'auth',
     component: AuthView,
+    meta: { guestOnly: true }
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: ForgotPasswordView,
+    meta: { guestOnly: true }
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: ResetPasswordView,
     meta: { guestOnly: true }
   },
   {

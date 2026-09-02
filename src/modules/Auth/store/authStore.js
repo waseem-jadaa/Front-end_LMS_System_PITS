@@ -46,6 +46,34 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function forgotPassword(payload) {
+    loading.value = true
+    error.value   = null
+    try {
+      const res = await authService.forgotPassword(payload)
+      return res
+    } catch (err) {
+      error.value = err.message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function resetPassword(payload) {
+    loading.value = true
+    error.value   = null
+    try {
+      const res = await authService.resetPassword(payload)
+      return res
+    } catch (err) {
+      error.value = err.message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   function loginAsGuest() {
     user.value  = { ...GUEST_USER }
     token.value = ROLES.GUEST
@@ -79,5 +107,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, token, loading, error, isAuthenticated, userName, role, isAdmin, isMember, isGuest, login, register, loginAsGuest, logout }
+  return { user, token, loading, error, isAuthenticated, userName, role, isAdmin, isMember, isGuest, login, register, forgotPassword, resetPassword, loginAsGuest, logout }
 })
