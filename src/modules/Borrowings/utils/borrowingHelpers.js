@@ -1,11 +1,15 @@
-export const getBookTitle = (borrowing) =>
-  borrowing.book?.title ?? borrowing.book_title ?? `#${borrowing.book_id ?? '—'}`
+export const getBookTitle = (borrowing) => {
+  if (typeof borrowing.book === 'string') return borrowing.book
+  return borrowing.book?.title ?? borrowing.book_title ?? `#${borrowing.book_id ?? '—'}`
+}
 
 export const getBookAuthor = (borrowing) =>
-  borrowing.book?.author ?? borrowing.book_author ?? ''
+  typeof borrowing.book === 'object' ? (borrowing.book?.author ?? borrowing.book_author ?? '') : ''
 
-export const getMemberName = (borrowing) =>
-  borrowing.member?.name ?? borrowing.user?.name ?? borrowing.member_name ?? `#${borrowing.member_id ?? borrowing.user_id ?? '—'}`
+export const getMemberName = (borrowing) => {
+  if (typeof borrowing.member === 'string') return borrowing.member
+  return borrowing.member?.name ?? borrowing.user?.name ?? borrowing.member_name ?? `#${borrowing.member_id ?? borrowing.user_id ?? '—'}`
+}
 
 export const getBorrowedDate = (borrowing) =>
   borrowing.borrowed_at ?? borrowing.borrow_date ?? borrowing.created_at ?? null

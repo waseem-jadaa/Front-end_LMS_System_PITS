@@ -58,34 +58,49 @@
           <p class="text-muted small mb-0">{{ isAdmin ? t('borrowings.empty.textAdmin') : t('borrowings.empty.textMember') }}</p>
         </div>
 
-        <BaseCard v-else flat class="borrowings-table-card mb-4">
-          <div class="table-responsive">
-            <table class="table align-middle mb-0 borrowings-table" :dir="dir">
-              <thead>
-                <tr>
-                  <th>{{ t('borrowings.table.book') }}</th>
-                  <th v-if="isAdmin" class="d-none d-md-table-cell">{{ t('borrowings.table.member') }}</th>
-                  <th class="d-none d-lg-table-cell">{{ t('borrowings.table.borrowed') }}</th>
-                  <th>{{ t('borrowings.table.due') }}</th>
-                  <th>{{ t('borrowings.table.status') }}</th>
-                  <th class="text-end">{{ t('borrowings.table.actions') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <BorrowingRow
-                  v-for="borrowing in filteredBorrowings"
-                  :key="borrowing.id"
-                  :borrowing="borrowing"
-                  :is-admin="isAdmin"
-                  @edit="openEditModal"
-                  @delete="openDeleteConfirm"
-                  @return="openReturnConfirm"
-                  @borrow-again="handleBorrowAgain"
-                />
-              </tbody>
-            </table>
+        <template v-else>
+          <div class="d-md-none row g-3 mb-4" :dir="dir">
+            <div class="col-12" v-for="borrowing in filteredBorrowings" :key="borrowing.id">
+              <BorrowingCard
+                :borrowing="borrowing"
+                :is-admin="isAdmin"
+                @edit="openEditModal"
+                @delete="openDeleteConfirm"
+                @return="openReturnConfirm"
+                @borrow-again="handleBorrowAgain"
+              />
+            </div>
           </div>
-        </BaseCard>
+
+          <BaseCard flat class="borrowings-table-card mb-4 d-none d-md-block">
+            <div class="table-responsive">
+              <table class="table align-middle mb-0 borrowings-table" :dir="dir">
+                <thead>
+                  <tr>
+                    <th>{{ t('borrowings.table.book') }}</th>
+                    <th v-if="isAdmin">{{ t('borrowings.table.member') }}</th>
+                    <th class="d-none d-lg-table-cell">{{ t('borrowings.table.borrowed') }}</th>
+                    <th>{{ t('borrowings.table.due') }}</th>
+                    <th>{{ t('borrowings.table.status') }}</th>
+                    <th class="text-end">{{ t('borrowings.table.actions') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <BorrowingRow
+                    v-for="borrowing in filteredBorrowings"
+                    :key="borrowing.id"
+                    :borrowing="borrowing"
+                    :is-admin="isAdmin"
+                    @edit="openEditModal"
+                    @delete="openDeleteConfirm"
+                    @return="openReturnConfirm"
+                    @borrow-again="handleBorrowAgain"
+                  />
+                </tbody>
+              </table>
+            </div>
+          </BaseCard>
+        </template>
 
         <nav v-if="store.meta && store.meta.last_page > 1" class="d-flex justify-content-center mb-4" :dir="dir">
           <ul class="pagination pagination-custom mb-0">
@@ -137,6 +152,7 @@ import BaseButton from '@/core/components/BaseButton.vue'
 import ConfirmModal from '@/core/components/ConfirmModal.vue'
 import { useAuthStore } from '@/modules/Auth/store/authStore'
 import BorrowingRow from '../components/BorrowingRow.vue'
+import BorrowingCard from '../components/BorrowingCard.vue'
 import BorrowingEditModal from '../components/BorrowingEditModal.vue'
 import { useBorrowingsStore } from '../store/borrowingsStore'
 import { getBookTitle, getStatus } from '../utils/borrowingHelpers'

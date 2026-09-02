@@ -6,37 +6,30 @@
     id="sidebarOffcanvas"
   >
     <div class="offcanvas-header d-md-none border-bottom border-secondary border-opacity-25">
-      <h5 class="offcanvas-title font-serif text-white m-2" :dir="dir">{{ t('dashboard.sidebar.title') }}</h5>
-      <div class="d-flex align-items-center gap-3">
-        <div class="d-flex align-items-center gap-2 mobile-header-actions">
-          <div class="dropdown">
-            <button
-              class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center mobile-icon-btn"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              :title="t('dashboard.header.changeLanguage')"
-            >
-              <img :src="langIcon" alt="" width="18" height="18" />
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 lang-dropdown-menu" :dir="dir">
-              <li>
-                <button type="button" class="dropdown-item" :class="{ active: locale === 'en' }" @click="setLocale('en')">
-                  English
-                </button>
-              </li>
-              <li>
-                <button type="button" class="dropdown-item" :class="{ active: locale === 'ar' }" @click="setLocale('ar')">
-                  العربية
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center position-relative mobile-icon-btn" :title="t('dashboard.header.notifications')">
-            <img :src="notifIcon" alt="" width="18" height="18" />
-            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+      <h5 class="offcanvas-title font-serif text-white m-2 " :dir="dir">{{ t('dashboard.sidebar.title') }}</h5>
+      <div class="d-flex align-items-center gap-4 m-2">
+        <div class="dropdown">
+          <button
+            class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center mobile-icon-btn"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            :title="t('dashboard.header.changeLanguage')"
+          >
+            <img :src="langIcon" alt="" width="18" height="18" />
           </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 lang-dropdown-menu" :dir="dir">
+            <li>
+              <button type="button" class="dropdown-item" :class="{ active: locale === 'en' }" @click="setLocale('en')">
+                English
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" :class="{ active: locale === 'ar' }" @click="setLocale('ar')">
+                العربية
+              </button>
+            </li>
+          </ul>
         </div>
 
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebarOffcanvas" aria-label="Close"></button>
@@ -94,7 +87,6 @@ import usersIcon      from '../../../assets/icons/users.svg'
 import fileTextIcon   from '../../../assets/icons/file-text.svg'
 import chevronIcon    from '../../../assets/icons/chevron-left.svg'
 import langIcon       from '../../../assets/icons/language.svg'
-import notifIcon      from '../../../assets/icons/notifications.svg'
 
 const { t, locale } = useI18n()
 const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
@@ -157,11 +149,6 @@ function setLocale(lang) {
 
 .mobile-icon-btn img {
   filter: brightness(0) invert(1);
-}
-
-.mobile-header-actions {
-  padding-inline-end: 1rem;
-  border-inline-end: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .mobile-icon-btn:hover {

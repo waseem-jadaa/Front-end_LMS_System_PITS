@@ -77,7 +77,6 @@
     "header": {
       "searchPlaceholder": "Find a book, author, or ancient manuscript...",
       "changeLanguage": "Change language",
-      "notifications": "Notifications",
       "logout": "Logout"
     },
     "hero": {
@@ -101,10 +100,9 @@
     "hero": {
       "badge": "Directory",
       "title": "Members of the Archive",
-      "text": "Browse, add, and manage the members registered in the library, and keep their records accurate and up to date."
+      "text": "Browse and manage the members registered in the library, and keep their records accurate and up to date."
     },
     "actions": {
-      "add": "Add Member",
       "view": "View",
       "edit": "Edit",
       "delete": "Delete",
@@ -123,7 +121,7 @@
     },
     "empty": {
       "title": "No members yet",
-      "text": "Add your first member to start building the directory.",
+      "text": "Members will appear here once they register.",
       "titleFiltered": "No matching members",
       "textFiltered": "Try a different name or email search."
     },
@@ -132,7 +130,6 @@
       "retry": "Retry"
     },
     "form": {
-      "createTitle": "Add New Member",
       "editTitle": "Edit Member",
       "viewTitle": "Member Details",
       "fields": {
@@ -147,8 +144,6 @@
         "emailInvalid": "Enter a valid email address"
       },
       "messages": {
-        "createSuccess": "Member added successfully.",
-        "createFailed": "Failed to add member. Please try again.",
         "updateSuccess": "Member updated successfully.",
         "updateFailed": "Failed to update member. Please try again."
       }

@@ -9,9 +9,6 @@ const membersService = {
   show: (id) =>
     apiClient.get(`${API_ROUTES.MEMBERS}/${id}`),
 
-  store: (payload) =>
-    apiClient.post(API_ROUTES.MEMBERS, payload),
-
   update: (id, payload) =>
     apiClient.put(`${API_ROUTES.MEMBERS}/${id}`, payload),
 

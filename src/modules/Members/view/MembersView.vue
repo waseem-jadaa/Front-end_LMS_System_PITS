@@ -7,15 +7,10 @@
 
       <div class="flex-grow-1 p-3 p-md-4" dir="ltr">
 
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 p-3 p-md-4 rounded-4 shadow-sm mb-4 hero-card" :dir="dir">
-          <div>
-            <span class="badge mb-2 text-dark hero-badge">{{ t('members.hero.badge') }}</span>
-            <h1 class="fw-bold font-serif mb-2 hero-title">{{ t('members.hero.title') }}</h1>
-            <p class="text-secondary mb-0 hero-text">{{ t('members.hero.text') }}</p>
-          </div>
-          <BaseButton class="btn-add-member" variant="warning" @click="openCreateModal">
-            <img :src="userPlusIcon" alt="" width="18" height="18" class="me-2" />{{ t('members.actions.add') }}
-          </BaseButton>
+        <div class="p-3 p-md-4 rounded-4 shadow-sm mb-4 hero-card" :dir="dir">
+          <span class="badge mb-2 text-dark hero-badge">{{ t('members.hero.badge') }}</span>
+          <h1 class="fw-bold font-serif mb-2 hero-title">{{ t('members.hero.title') }}</h1>
+          <p class="text-secondary mb-0 hero-text">{{ t('members.hero.text') }}</p>
         </div>
 
         <transition name="alert-fade">
@@ -59,29 +54,42 @@
           <p class="text-muted small mb-0">{{ searchQuery ? t('members.empty.textFiltered') : t('members.empty.text') }}</p>
         </div>
 
-        <BaseCard v-else flat class="members-table-card mb-4">
-          <div class="table-responsive">
-            <table class="table align-middle mb-0 members-table" :dir="dir">
-              <thead>
-                <tr>
-                  <th>{{ t('members.table.member') }}</th>
-                  <th class="d-none d-md-table-cell">{{ t('members.table.email') }}</th>
-                  <th class="text-end">{{ t('members.table.actions') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <MemberRow
-                  v-for="member in store.members"
-                  :key="member.id"
-                  :member="member"
-                  @view="openViewModal"
-                  @edit="openEditModal"
-                  @delete="openDeleteConfirm"
-                />
-              </tbody>
-            </table>
+        <template v-else>
+          <div class="d-md-none row g-3 mb-4" :dir="dir">
+            <div class="col-12" v-for="member in store.members" :key="member.id">
+              <MemberCard
+                :member="member"
+                @view="openViewModal"
+                @edit="openEditModal"
+                @delete="openDeleteConfirm"
+              />
+            </div>
           </div>
-        </BaseCard>
+
+          <BaseCard flat class="members-table-card mb-4 d-none d-md-block">
+            <div class="table-responsive">
+              <table class="table align-middle mb-0 members-table" :dir="dir">
+                <thead>
+                  <tr>
+                    <th>{{ t('members.table.member') }}</th>
+                    <th>{{ t('members.table.email') }}</th>
+                    <th class="text-end">{{ t('members.table.actions') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <MemberRow
+                    v-for="member in store.members"
+                    :key="member.id"
+                    :member="member"
+                    @view="openViewModal"
+                    @edit="openEditModal"
+                    @delete="openDeleteConfirm"
+                  />
+                </tbody>
+              </table>
+            </div>
+          </BaseCard>
+        </template>
 
         <nav v-if="store.meta && store.meta.last_page > 1" class="d-flex justify-content-center mb-4" :dir="dir">
           <ul class="pagination pagination-custom mb-0">
@@ -132,12 +140,12 @@ import BaseCard from '@/core/components/BaseCard.vue'
 import BaseInput from '@/core/components/BaseInput.vue'
 import BaseButton from '@/core/components/BaseButton.vue'
 import MemberRow from '../components/MemberRow.vue'
+import MemberCard from '../components/MemberCard.vue'
 import MemberFormModal from '../components/MemberFormModal.vue'
 import ConfirmModal from '@/core/components/ConfirmModal.vue'
 import { useMembersStore } from '../store/membersStore'
 import { debounce } from '@/core/utils/helpers'
 import searchIcon      from '../../../assets/icons/search.svg'
-import userPlusIcon    from '../../../assets/icons/user-plus.svg'
 import usersIcon       from '../../../assets/icons/users.svg'
 import alertIcon       from '../../../assets/icons/alert-circle.svg'
 import checkCircleIcon from '../../../assets/icons/check-circle.svg'
@@ -166,13 +174,7 @@ function goToPage(page) {
   loadMembers(page)
 }
 
-const formModal = reactive({ show: false, mode: 'create', member: null })
-
-function openCreateModal() {
-  formModal.mode = 'create'
-  formModal.member = null
-  formModal.show = true
-}
+const formModal = reactive({ show: false, mode: 'view', member: null })
 
 function openEditModal(member) {
   formModal.mode = 'edit'
@@ -190,8 +192,8 @@ function closeFormModal() {
   formModal.show = false
 }
 
-function handleSaved({ mode }) {
-  showPageAlert('success', mode === 'create' ? t('members.form.messages.createSuccess') : t('members.form.messages.updateSuccess'))
+function handleSaved() {
+  showPageAlert('success', t('members.form.messages.updateSuccess'))
 }
 
 const deleteConfirm = reactive({ show: false, member: null })
@@ -254,18 +256,6 @@ onMounted(() => loadMembers(1))
 .hero-text {
   line-height: 1.8;
   max-width: 560px;
-}
-
-.btn-add-member {
-  background: var(--mustard);
-  color: var(--navy);
-  border: none;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.btn-add-member:hover:not(:disabled) {
-  background: var(--gold);
 }
 
 .search-wrap-outer {

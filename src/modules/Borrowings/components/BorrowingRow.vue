@@ -4,7 +4,7 @@
       <div class="fw-bold text-truncate borrowing-book">{{ getBookTitle(borrowing) }}</div>
       <div v-if="getBookAuthor(borrowing)" class="small text-muted text-truncate">{{ getBookAuthor(borrowing) }}</div>
     </td>
-    <td v-if="isAdmin" class="d-none d-md-table-cell text-muted">{{ getMemberName(borrowing) }}</td>
+    <td v-if="isAdmin" class="text-muted">{{ getMemberName(borrowing) }}</td>
     <td class="d-none d-lg-table-cell text-muted small">{{ formatDate(getBorrowedDate(borrowing)) }}</td>
     <td class="text-muted small">{{ formatDate(getDueDate(borrowing)) }}</td>
     <td>
