@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import booksService from '../services/booksService'
+import { extractList, extractRecord } from '@/core/utils/apiHelpers'
 
 export const useBooksStore = defineStore('books', () => {
   const books             = ref([])
@@ -20,8 +21,9 @@ export const useBooksStore = defineStore('books', () => {
     loading.value = true; error.value = null
     try {
       const res = await booksService.index(params)
-      books.value = res?.data ?? res ?? []
-      meta.value = res?.meta ?? null
+      const { list, meta: pageMeta } = extractList(res)
+      books.value = list
+      meta.value = pageMeta
     } catch (err) {
       error.value = err?.response?.data?.message || err.message
       books.value = []
@@ -34,7 +36,7 @@ export const useBooksStore = defineStore('books', () => {
     loading.value = true; error.value = null
     try {
       const res = await booksService.show(id)
-      currentBook.value = res?.data ?? res
+      currentBook.value = extractRecord(res)
       return currentBook.value
     } catch (err) {
       error.value = err?.response?.data?.message || err.message
@@ -48,7 +50,7 @@ export const useBooksStore = defineStore('books', () => {
     saving.value = true; error.value = null
     try {
       const res = await booksService.store(payload)
-      const created = res?.data ?? res
+      const created = extractRecord(res)
       books.value.unshift(created)
       return created
     } catch (err) {
@@ -63,7 +65,7 @@ export const useBooksStore = defineStore('books', () => {
     saving.value = true; error.value = null
     try {
       const res = await booksService.update(id, payload)
-      const updated = res?.data ?? res
+      const updated = extractRecord(res)
       const idx = books.value.findIndex(b => b.id === id)
       if (idx !== -1) books.value[idx] = updated
       return updated
@@ -92,7 +94,7 @@ export const useBooksStore = defineStore('books', () => {
     restoring.value = true; error.value = null
     try {
       const res = await booksService.restore(id)
-      const restored = res?.data ?? res
+      const restored = extractRecord(res)
       books.value = books.value.filter(b => b.id !== id)
       return restored
     } catch (err) {
@@ -107,7 +109,7 @@ export const useBooksStore = defineStore('books', () => {
     historyLoading.value = true
     try {
       const res = await booksService.history(id)
-      historyEntries.value = res?.data ?? res ?? []
+      historyEntries.value = extractList(res).list
     } catch {
       historyEntries.value = []
     } finally {
@@ -119,7 +121,7 @@ export const useBooksStore = defineStore('books', () => {
     statisticsLoading.value = true
     try {
       const res = await booksService.statistics()
-      statistics.value = res?.data ?? res ?? null
+      statistics.value = extractRecord(res) ?? null
     } catch {
       statistics.value = null
     } finally {

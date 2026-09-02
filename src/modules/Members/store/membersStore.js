@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import membersService from '../services/membersService'
+import { extractList, extractRecord } from '@/core/utils/apiHelpers'
 
 export const useMembersStore = defineStore('members', () => {
   const members       = ref([])
@@ -15,8 +16,9 @@ export const useMembersStore = defineStore('members', () => {
     loading.value = true; error.value = null
     try {
       const res = await membersService.index(params)
-      members.value = res?.data ?? res ?? []
-      meta.value = res?.meta ?? null
+      const { list, meta: pageMeta } = extractList(res)
+      members.value = list
+      meta.value = pageMeta
     } catch (err) {
       error.value = err?.response?.data?.message || err.message
       members.value = []
@@ -29,7 +31,7 @@ export const useMembersStore = defineStore('members', () => {
     loading.value = true; error.value = null
     try {
       const res = await membersService.show(id)
-      currentMember.value = res?.data ?? res
+      currentMember.value = extractRecord(res)
       return currentMember.value
     } catch (err) {
       error.value = err?.response?.data?.message || err.message
@@ -43,7 +45,7 @@ export const useMembersStore = defineStore('members', () => {
     saving.value = true; error.value = null
     try {
       const res = await membersService.store(payload)
-      const created = res?.data ?? res
+      const created = extractRecord(res)
       members.value.unshift(created)
       return created
     } catch (err) {
@@ -58,7 +60,7 @@ export const useMembersStore = defineStore('members', () => {
     saving.value = true; error.value = null
     try {
       const res = await membersService.update(id, payload)
-      const updated = res?.data ?? res
+      const updated = extractRecord(res)
       const idx = members.value.findIndex(m => m.id === id)
       if (idx !== -1) members.value[idx] = updated
       return updated

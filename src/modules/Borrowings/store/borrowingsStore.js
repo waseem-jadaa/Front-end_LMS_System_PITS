@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import borrowingsService from '../services/borrowingsService'
+import { extractList, extractRecord } from '@/core/utils/apiHelpers'
 
 export const useBorrowingsStore = defineStore('borrowings', () => {
   const borrowings       = ref([])
@@ -16,8 +17,9 @@ export const useBorrowingsStore = defineStore('borrowings', () => {
     loading.value = true; error.value = null
     try {
       const res = await borrowingsService.index(params)
-      borrowings.value = res?.data ?? res ?? []
-      meta.value = res?.meta ?? null
+      const { list, meta: pageMeta } = extractList(res)
+      borrowings.value = list
+      meta.value = pageMeta
     } catch (err) {
       error.value = err?.response?.data?.message || err.message
       borrowings.value = []
@@ -30,7 +32,7 @@ export const useBorrowingsStore = defineStore('borrowings', () => {
     loading.value = true; error.value = null
     try {
       const res = await borrowingsService.show(id)
-      currentBorrowing.value = res?.data ?? res
+      currentBorrowing.value = extractRecord(res)
       return currentBorrowing.value
     } catch (err) {
       error.value = err?.response?.data?.message || err.message
@@ -44,7 +46,7 @@ export const useBorrowingsStore = defineStore('borrowings', () => {
     saving.value = true; error.value = null
     try {
       const res = await borrowingsService.store(payload)
-      const created = res?.data ?? res
+      const created = extractRecord(res)
       borrowings.value.unshift(created)
       return created
     } catch (err) {
@@ -59,7 +61,7 @@ export const useBorrowingsStore = defineStore('borrowings', () => {
     saving.value = true; error.value = null
     try {
       const res = await borrowingsService.update(id, payload)
-      const updated = res?.data ?? res
+      const updated = extractRecord(res)
       const idx = borrowings.value.findIndex(b => b.id === id)
       if (idx !== -1) borrowings.value[idx] = updated
       return updated
@@ -88,7 +90,7 @@ export const useBorrowingsStore = defineStore('borrowings', () => {
     returning.value = true; error.value = null
     try {
       const res = await borrowingsService.return(id)
-      const returned = res?.data ?? res
+      const returned = extractRecord(res)
       const idx = borrowings.value.findIndex(b => b.id === id)
       if (idx !== -1 && returned) borrowings.value[idx] = returned
       return returned
