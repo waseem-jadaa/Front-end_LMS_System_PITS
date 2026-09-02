@@ -1,41 +1,44 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import dashboardService from '../services/dashboardService'
+import { extractList, extractRecord } from '@/core/utils/apiHelpers'
 
 export const useDashboardStore = defineStore('dashboard', () => {
-  const stats   = ref(null)
-  const books   = ref([])
-  const loading = ref(false)
-  const error   = ref(null)
-
-  const mockBooks = [
-    { id: 1, title: 'قواعد العشق الأربعون', author: 'إليف شافاق', year: 2010, category: 'أدب وروايات', rating: 4.9 },
-    { id: 2, title: 'مقدمة ابن خلدون',      author: 'ابن خلدون',   year: 1377, category: 'تاريخ وفلسفة', rating: 5.0 },
-    { id: 3, title: 'المنقذ من الضلال',     author: 'الإمام الغزالي',year: 1100,category: 'فلسفة إسلامية',rating: 4.8 }
-  ]
+  const totalBooks    = ref(null)
+  const activeMembers = ref(null)
+  const books         = ref([])
+  const statsLoading  = ref(false)
+  const booksLoading  = ref(false)
 
   async function fetchStats() {
-    loading.value = true; error.value = null
+    statsLoading.value = true
     try {
-      stats.value = await dashboardService.getStats()
+      const [statsRes, membersRes] = await Promise.all([
+        dashboardService.getBookStatistics(),
+        dashboardService.getMembersCount({ page: 1 })
+      ])
+      const stats = extractRecord(statsRes) || {}
+      totalBooks.value = stats.total_books ?? stats.total ?? null
+      activeMembers.value = extractList(membersRes).meta?.total ?? null
     } catch {
-
+      totalBooks.value = null
+      activeMembers.value = null
     } finally {
-      loading.value = false
+      statsLoading.value = false
     }
   }
 
   async function fetchBooks() {
-    loading.value = true; error.value = null
+    booksLoading.value = true
     try {
-      const res = await dashboardService.getRecentBooks()
-      books.value = res.data ?? res
+      const res = await dashboardService.getRecentBooks({ page: 1 })
+      books.value = extractList(res).list.slice(0, 3)
     } catch {
-      books.value = mockBooks
+      books.value = []
     } finally {
-      loading.value = false
+      booksLoading.value = false
     }
   }
 
-  return { stats, books, loading, error, mockBooks, fetchStats, fetchBooks }
+  return { totalBooks, activeMembers, books, statsLoading, booksLoading, fetchStats, fetchBooks }
 })

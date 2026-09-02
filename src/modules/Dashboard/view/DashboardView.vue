@@ -14,14 +14,14 @@
             <p class="text-secondary mb-4 hero-text">
               {{ t('dashboard.hero.text') }}
             </p>
-            <div class="d-flex flex-wrap gap-3">
+            <div v-if="isAdmin" class="d-flex flex-wrap gap-3">
               <div class="bg-white px-3 py-2 rounded shadow-sm border stat-card">
                 <span class="d-block text-muted small">{{ t('dashboard.hero.totalBooks') }}</span>
-                <strong class="fs-5 stat-value">1,420</strong>
+                <strong class="fs-5 stat-value">{{ store.statsLoading ? '—' : (store.totalBooks ?? '—') }}</strong>
               </div>
               <div class="bg-white px-3 py-2 rounded shadow-sm border stat-card">
                 <span class="d-block text-muted small">{{ t('dashboard.hero.activeMembers') }}</span>
-                <strong class="fs-5 stat-value">345</strong>
+                <strong class="fs-5 stat-value">{{ store.statsLoading ? '—' : (store.activeMembers ?? '—') }}</strong>
               </div>
             </div>
           </div>
@@ -34,25 +34,34 @@
           </div>
         </div>
 
-        <h3 class="fw-bold font-serif mb-4 section-title" :dir="dir">📚 {{ t('dashboard.sections.featured') }}</h3>
+        <template v-if="!authStore.isGuest">
+          <h3 class="fw-bold font-serif mb-4 section-title" :dir="dir">📚 {{ t('dashboard.sections.featured') }}</h3>
 
-        <div class="row g-4 mb-4">
-          <div class="col-12 col-sm-6 col-lg-4" v-for="book in mockBooks" :key="book.id">
-            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 book-card">
-              <div class="d-flex gap-3">
-                <div class="rounded p-3 text-white d-flex align-items-center justify-content-center book-cover-placeholder flex-shrink-0">
-                  <span class="small text-center">{{ t('dashboard.bookCard.placeholder') }}</span>
-                </div>
-                <div class="book-info">
-                  <span class="badge bg-light text-dark border mb-1 book-category">{{ book.category }}</span>
-                  <h6 class="fw-bold mb-1 book-title text-truncate">{{ book.title }}</h6>
-                  <p class="text-muted small mb-1 text-truncate">{{ book.author }} • {{ book.year }}</p>
-                  <span class="small book-rating">★★★★★ <span class="fw-bold rating-value">{{ book.rating }}</span></span>
+          <div v-if="store.booksLoading" class="row g-4 mb-4">
+            <div class="col-12 col-sm-6 col-lg-4" v-for="n in 3" :key="n">
+              <div class="skeleton-card rounded-4"></div>
+            </div>
+          </div>
+
+          <p v-else-if="!store.books.length" class="text-muted small mb-4" :dir="dir">{{ t('dashboard.sections.empty') }}</p>
+
+          <div v-else class="row g-4 mb-4">
+            <div class="col-12 col-sm-6 col-lg-4" v-for="book in store.books" :key="book.id">
+              <div class="card h-100 border-0 shadow-sm rounded-4 p-3 book-card">
+                <div class="d-flex gap-3">
+                  <div class="rounded p-3 text-white d-flex align-items-center justify-content-center book-cover-placeholder flex-shrink-0">
+                    <span class="small text-center">{{ t('dashboard.bookCard.placeholder') }}</span>
+                  </div>
+                  <div class="book-info">
+                    <span class="badge bg-light text-dark border mb-1 book-category">{{ book.category }}</span>
+                    <h6 class="fw-bold mb-1 book-title text-truncate">{{ book.title }}</h6>
+                    <p class="text-muted small mb-0 text-truncate">{{ book.author }} • {{ book.publish_year }}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
 
         <Footer />
       </div>
@@ -60,23 +69,26 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
 import Footer from '../components/Footer.vue'
+import { useAuthStore } from '@/modules/Auth/store/authStore'
+import { useDashboardStore } from '../store/dashboardStore'
 import libraryHeroImg from '../../../assets/library-hero.webp'
 
 const { t, locale } = useI18n()
 const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
+const authStore = useAuthStore()
+const isAdmin = computed(() => authStore.isAdmin)
+const store = useDashboardStore()
 
-const mockBooks = ref([
-  { id: 1, title: 'قواعد العشق الأربعون', author: 'إليف شافاق', year: 2010, category: 'أدب وروايات', rating: 4.9 },
-  { id: 2, title: 'مقدمة ابن خلدون', author: 'ابن خلدون', year: 1377, category: 'تاريخ وفلسفة', rating: 5.0 },
-  { id: 3, title: 'المنقذ من الضلال', author: 'الإمام الغزالي', year: 1100, category: 'فلسفة إسلامية', rating: 4.8 }
-])
+onMounted(() => {
+  if (isAdmin.value) store.fetchStats()
+  if (!authStore.isGuest) store.fetchBooks()
+})
 </script>
 
 <style scoped>
@@ -159,12 +171,17 @@ const mockBooks = ref([
   color: var(--navy);
 }
 
-.book-rating {
-  color: var(--mustard);
+.skeleton-card {
+  height: 132px;
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--gold-tint) 37%, var(--bg-card) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border: 1px solid var(--border);
 }
 
-.rating-value {
-  color: var(--text-body);
+@keyframes skeleton-shimmer {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
 }
 
 @media (max-width: 991.98px) {
