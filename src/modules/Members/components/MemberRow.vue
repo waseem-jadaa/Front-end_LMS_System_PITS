@@ -14,13 +14,13 @@
     <td class="d-none d-md-table-cell text-muted member-email">{{ member.email }}</td>
     <td>
       <div class="d-flex justify-content-end gap-2">
-        <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('members.actions.view')" @click="$emit('view', member)">
+        <button type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('members.actions.view')" @click="$emit('view', member)">
           <img :src="eyeIcon" alt="" width="16" height="16" />
         </button>
-        <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('members.actions.edit')" @click="$emit('edit', member)">
+        <button type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('members.actions.edit')" @click="$emit('edit', member)">
           <img :src="editIcon" alt="" width="16" height="16" />
         </button>
-        <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn row-icon-btn--danger" :title="t('members.actions.delete')" @click="$emit('delete', member)">
+        <button type="button" class="btn rounded-circle border-0 row-icon-btn row-icon-btn--danger" :title="t('members.actions.delete')" @click="$emit('delete', member)">
           <img :src="trashIcon" alt="" width="16" height="16" />
         </button>
       </div>
@@ -69,6 +69,10 @@ const initials = computed(() => getInitials(props.member.name))
 .row-icon-btn {
   width: 34px;
   height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--gold-tint);
   color: var(--navy);
   transition: all 0.2s ease;

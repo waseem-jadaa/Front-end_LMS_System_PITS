@@ -13,18 +13,18 @@
     <td>
       <div class="d-flex justify-content-end gap-2">
         <template v-if="isAdmin">
-          <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('borrowings.actions.edit')" @click="$emit('edit', borrowing)">
+          <button type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('borrowings.actions.edit')" @click="$emit('edit', borrowing)">
             <img :src="editIcon" alt="" width="16" height="16" />
           </button>
-          <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn row-icon-btn--danger" :title="t('borrowings.actions.delete')" @click="$emit('delete', borrowing)">
+          <button type="button" class="btn rounded-circle border-0 row-icon-btn row-icon-btn--danger" :title="t('borrowings.actions.delete')" @click="$emit('delete', borrowing)">
             <img :src="trashIcon" alt="" width="16" height="16" />
           </button>
         </template>
         <template v-else>
-          <button v-if="!isReturned(borrowing)" type="button" class="btn p-2 rounded-circle border-0 row-icon-btn row-icon-btn--success" :title="t('borrowings.actions.return')" @click="$emit('return', borrowing)">
+          <button v-if="!isReturned(borrowing)" type="button" class="btn rounded-circle border-0 row-icon-btn row-icon-btn--success" :title="t('borrowings.actions.return')" @click="$emit('return', borrowing)">
             <img :src="checkIcon" alt="" width="16" height="16" />
           </button>
-          <button v-else type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('borrowings.actions.borrowAgain')" @click="$emit('borrow-again', borrowing)">
+          <button v-else type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('borrowings.actions.borrowAgain')" @click="$emit('borrow-again', borrowing)">
             <img :src="bookIcon" alt="" width="16" height="16" />
           </button>
         </template>
@@ -92,6 +92,10 @@ function formatDate(raw) {
 .row-icon-btn {
   width: 34px;
   height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--gold-tint);
   color: var(--navy);
   transition: all 0.2s ease;

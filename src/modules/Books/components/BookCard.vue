@@ -27,25 +27,25 @@
         <img :src="borrowIcon" alt="" width="15" height="15" />{{ t('books.actions.borrow') }}
       </button>
 
-      <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('books.actions.view')" @click="$emit('view', book)">
+      <button type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('books.actions.view')" @click="$emit('view', book)">
         <img :src="eyeIcon" alt="" width="16" height="16" />
       </button>
 
       <template v-if="isAdmin">
-        <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('books.actions.history')" @click="$emit('history', book)">
+        <button type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('books.actions.history')" @click="$emit('history', book)">
           <img :src="historyIcon" alt="" width="16" height="16" />
         </button>
 
         <template v-if="isDeletedView">
-          <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn row-icon-btn--success" :title="t('books.actions.restore')" @click="$emit('restore', book)">
+          <button type="button" class="btn rounded-circle border-0 row-icon-btn row-icon-btn--success" :title="t('books.actions.restore')" @click="$emit('restore', book)">
             <img :src="restoreIcon" alt="" width="16" height="16" />
           </button>
         </template>
         <template v-else>
-          <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn" :title="t('books.actions.edit')" @click="$emit('edit', book)">
+          <button type="button" class="btn rounded-circle border-0 row-icon-btn" :title="t('books.actions.edit')" @click="$emit('edit', book)">
             <img :src="editIcon" alt="" width="16" height="16" />
           </button>
-          <button type="button" class="btn p-2 rounded-circle border-0 row-icon-btn row-icon-btn--danger" :title="t('books.actions.delete')" @click="$emit('delete', book)">
+          <button type="button" class="btn rounded-circle border-0 row-icon-btn row-icon-btn--danger" :title="t('books.actions.delete')" @click="$emit('delete', book)">
             <img :src="trashIcon" alt="" width="16" height="16" />
           </button>
         </template>
@@ -146,6 +146,10 @@ const isAvailable = computed(() => !!Number(props.book.is_available))
 .row-icon-btn {
   width: 32px;
   height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--gold-tint);
   color: var(--navy);
   transition: all 0.2s ease;
