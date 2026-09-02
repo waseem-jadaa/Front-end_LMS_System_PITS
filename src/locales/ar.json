@@ -31,13 +31,15 @@
       "newUser": "لا تمتلك حساباً؟",
       "createAccount": "إنشاء حساب",
       "existingUser": "لديك حساب بالفعل؟",
-      "signin": "تسجيل الدخول"
+      "signin": "تسجيل الدخول",
+      "orDivider": "أو"
     },
     "buttons": {
       "login": "دخول",
       "loggingIn": "جارٍ تسجيل الدخول…",
       "createAccount": "إنشاء الحساب",
-      "creatingAccount": "جارٍ الإنشاء…"
+      "creatingAccount": "جارٍ الإنشاء…",
+      "guestLogin": "الدخول كزائر"
     },
     "validation": {
       "emailRequired": "البريد الإلكتروني مطلوب",
@@ -93,6 +95,183 @@
     },
     "footer": {
       "text": "مكتبة دار الحكمة الرقمية © 2026 - إرث عريق برؤية عصرية"
+    }
+  },
+  "members": {
+    "hero": {
+      "badge": "الدليل",
+      "title": "أعضاء الأرشيف",
+      "text": "تصفح أعضاء المكتبة المسجلين، أضف أعضاء جدداً، وحافظ على دقة بياناتهم وتحديثها باستمرار."
+    },
+    "actions": {
+      "add": "إضافة عضو",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "cancel": "إلغاء",
+      "close": "إغلاق"
+    },
+    "search": {
+      "placeholder": "ابحث عن عضو بالاسم أو البريد الإلكتروني..."
+    },
+    "table": {
+      "member": "العضو",
+      "email": "البريد الإلكتروني",
+      "actions": "الإجراءات"
+    },
+    "empty": {
+      "title": "لا يوجد أعضاء بعد",
+      "text": "أضف أول عضو لبدء بناء دليل الأعضاء.",
+      "titleFiltered": "لا يوجد أعضاء مطابقون",
+      "textFiltered": "جرّب اسماً أو بريداً إلكترونياً مختلفاً."
+    },
+    "error": {
+      "loadFailed": "فشل تحميل الأعضاء. يرجى المحاولة مرة أخرى.",
+      "retry": "إعادة المحاولة"
+    },
+    "form": {
+      "createTitle": "إضافة عضو جديد",
+      "editTitle": "تعديل بيانات العضو",
+      "viewTitle": "تفاصيل العضو",
+      "fields": {
+        "name": "الاسم الكامل",
+        "namePlaceholder": "أدخل الاسم الكامل للعضو",
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "أدخل البريد الإلكتروني للعضو"
+      },
+      "validation": {
+        "nameRequired": "الاسم الكامل مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "أدخل بريداً إلكترونياً صحيحاً"
+      },
+      "messages": {
+        "createSuccess": "تمت إضافة العضو بنجاح.",
+        "createFailed": "فشلت إضافة العضو. يرجى المحاولة مرة أخرى.",
+        "updateSuccess": "تم تحديث بيانات العضو بنجاح.",
+        "updateFailed": "فشل تحديث بيانات العضو. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "delete": {
+      "title": "حذف العضو",
+      "message": "هل أنت متأكد من حذف {name}؟ لا يمكن التراجع عن هذا الإجراء.",
+      "confirm": "حذف",
+      "success": "تم حذف العضو بنجاح.",
+      "failed": "فشل حذف العضو. يرجى المحاولة مرة أخرى."
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "pageInfo": "صفحة {current} من {total}"
+    }
+  },
+  "books": {
+    "hero": {
+      "badge": "الفهرس",
+      "title": "كتب الأرشيف",
+      "text": "تصفح وابحث في مجموعة المكتبة من الكتب والمخطوطات."
+    },
+    "stats": {
+      "total": "إجمالي الكتب",
+      "available": "المتاحة",
+      "borrowed": "المستعارة"
+    },
+    "card": {
+      "placeholder": "كتاب",
+      "deleted": "محذوف",
+      "available": "متاح",
+      "unavailable": "غير متاح"
+    },
+    "actions": {
+      "add": "إضافة كتاب",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "restore": "استعادة",
+      "history": "السجل",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "cancel": "إلغاء",
+      "close": "إغلاق"
+    },
+    "search": {
+      "placeholder": "ابحث عن كتاب بالعنوان أو المؤلف أو التصنيف..."
+    },
+    "tabs": {
+      "active": "النشطة",
+      "deleted": "المحذوفة"
+    },
+    "empty": {
+      "title": "لا توجد كتب بعد",
+      "text": "أضف أول كتاب لبدء بناء الفهرس.",
+      "titleFiltered": "لا توجد كتب مطابقة",
+      "textFiltered": "جرّب بحثاً مختلفاً.",
+      "titleDeleted": "لا توجد كتب محذوفة",
+      "textDeleted": "الكتب التي تحذفها ستظهر هنا لاستعادتها."
+    },
+    "error": {
+      "loadFailed": "فشل تحميل الكتب. يرجى المحاولة مرة أخرى.",
+      "retry": "إعادة المحاولة"
+    },
+    "form": {
+      "createTitle": "إضافة كتاب جديد",
+      "editTitle": "تعديل بيانات الكتاب",
+      "viewTitle": "تفاصيل الكتاب",
+      "fields": {
+        "title": "العنوان",
+        "titlePlaceholder": "أدخل عنوان الكتاب",
+        "author": "المؤلف",
+        "authorPlaceholder": "أدخل اسم المؤلف",
+        "category": "التصنيف",
+        "categoryPlaceholder": "أدخل تصنيف الكتاب",
+        "publishYear": "سنة النشر",
+        "publishYearPlaceholder": "أدخل سنة النشر"
+      },
+      "validation": {
+        "titleRequired": "العنوان مطلوب",
+        "authorRequired": "المؤلف مطلوب",
+        "categoryRequired": "التصنيف مطلوب",
+        "yearRequired": "سنة النشر مطلوبة",
+        "yearInvalid": "أدخل سنة نشر صحيحة"
+      },
+      "messages": {
+        "createSuccess": "تمت إضافة الكتاب بنجاح.",
+        "createFailed": "فشلت إضافة الكتاب. يرجى المحاولة مرة أخرى.",
+        "updateSuccess": "تم تحديث بيانات الكتاب بنجاح.",
+        "updateFailed": "فشل تحديث بيانات الكتاب. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "delete": {
+      "title": "حذف الكتاب",
+      "message": "هل أنت متأكد من حذف \"{title}\"؟ يمكنك استعادته لاحقاً من تبويب المحذوفة.",
+      "confirm": "حذف",
+      "success": "تم حذف الكتاب بنجاح.",
+      "failed": "فشل حذف الكتاب. يرجى المحاولة مرة أخرى."
+    },
+    "restore": {
+      "title": "استعادة الكتاب",
+      "message": "استعادة \"{title}\" إلى الفهرس النشط؟",
+      "confirm": "استعادة",
+      "success": "تم استعادة الكتاب بنجاح.",
+      "failed": "فشل استعادة الكتاب. يرجى المحاولة مرة أخرى."
+    },
+    "history": {
+      "title": "سجل الكتاب",
+      "empty": "لا يوجد نشاط مسجل لهذا الكتاب بعد.",
+      "unknownAction": "نشاط",
+      "someone": "مستخدم",
+      "events": {
+        "created": "إنشاء",
+        "updated": "تحديث",
+        "deleted": "حذف",
+        "restored": "استعادة"
+      }
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "pageInfo": "صفحة {current} من {total}"
     }
   }
 }

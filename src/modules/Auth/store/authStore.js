@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import authService from '../services/authService'
-import { AUTH_TOKEN_KEY, AUTH_USER_KEY } from '@/core/utils/constants'
+import { AUTH_TOKEN_KEY, AUTH_USER_KEY, ROLES, GUEST_USER } from '@/core/utils/constants'
 
 export const useAuthStore = defineStore('auth', () => {
 
@@ -12,6 +12,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!token.value)
   const userName        = computed(() => user.value?.name ?? '')
+  const role            = computed(() => (user.value?.role ?? '').toLowerCase())
+  const isAdmin         = computed(() => role.value === ROLES.ADMIN)
+  const isMember        = computed(() => role.value === ROLES.MEMBER)
+  const isGuest         = computed(() => role.value === ROLES.GUEST)
 
   async function login(credentials) {
     loading.value = true
@@ -42,6 +46,13 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  function loginAsGuest() {
+    user.value  = { ...GUEST_USER }
+    token.value = ROLES.GUEST
+    localStorage.setItem(AUTH_TOKEN_KEY, token.value)
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user.value))
+  }
+
   async function logout() {
     loading.value = true
     try {
@@ -68,5 +79,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, token, loading, error, isAuthenticated, userName, login, register, logout }
+  return { user, token, loading, error, isAuthenticated, userName, role, isAdmin, isMember, isGuest, login, register, loginAsGuest, logout }
 })

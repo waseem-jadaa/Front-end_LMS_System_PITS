@@ -69,7 +69,7 @@
             <img :src="bookIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.books') }}</span>
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="authStore.isAdmin">
           <router-link to="/members" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.members') : null">
             <img :src="usersIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.members') }}</span>
           </router-link>
@@ -87,6 +87,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '../../Auth/store/authStore'
 import homeIcon      from '../../../assets/icons/home.svg'
 import bookIcon       from '../../../assets/icons/book.svg'
 import usersIcon      from '../../../assets/icons/users.svg'
@@ -98,6 +99,7 @@ import notifIcon      from '../../../assets/icons/notifications.svg'
 const { t, locale } = useI18n()
 const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
 const collapsed = ref(false)
+const authStore = useAuthStore()
 
 function setLocale(lang) {
   locale.value = lang

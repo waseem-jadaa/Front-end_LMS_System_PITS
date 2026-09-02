@@ -6,5 +6,18 @@ export const LANG_KEY       = 'lms_lang'
 export const API_ROUTES = Object.freeze({
   LOGIN:    '/login',
   REGISTER: '/register',
-  LOGOUT:   '/logout'
+  LOGOUT:   '/logout',
+  MEMBERS:  '/members',
+  BOOKS:    '/books'
+})
+
+export const ROLES = Object.freeze({
+  ADMIN:  'admin',
+  MEMBER: 'member',
+  GUEST:  'guest'
+})
+
+export const GUEST_USER = Object.freeze({
+  name: 'Guest',
+  role: ROLES.GUEST
 })
