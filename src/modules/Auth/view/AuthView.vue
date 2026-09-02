@@ -105,7 +105,7 @@
                   {{ t('auth.fields.rememberMe') }}
                 </label>
               </div>
-              <a href="#" class="forgot-link small">{{ t('auth.links.forgotPassword') }}</a>
+              <router-link :to="{ name: 'forgot-password' }" class="forgot-link small">{{ t('auth.links.forgotPassword') }}</router-link>
             </div>
 
             <button type="submit" class="btn-auth-submit w-100 rounded-3 fw-semibold d-flex align-items-center justify-content-center gap-2" :disabled="signInLoading">

@@ -4,9 +4,11 @@ export const AUTH_USER_KEY  = 'auth_user'
 export const LANG_KEY       = 'lms_lang'
 
 export const API_ROUTES = Object.freeze({
-  LOGIN:      '/login',
-  REGISTER:   '/register',
-  LOGOUT:     '/logout',
+  LOGIN:           '/login',
+  REGISTER:        '/register',
+  LOGOUT:          '/logout',
+  FORGOT_PASSWORD: '/forgot-password',
+  RESET_PASSWORD:  '/reset-password',
   MEMBERS:    '/members',
   BOOKS:      '/books',
   BORROWINGS: '/borrowings'
