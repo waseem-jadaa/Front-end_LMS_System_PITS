@@ -87,7 +87,8 @@
       "activeMembers": "Active Members"
     },
     "sections": {
-      "featured": "Selected Publications and Manuscripts"
+      "featured": "Selected Publications and Manuscripts",
+      "empty": "No books to show yet."
     },
     "bookCard": {
       "placeholder": "Book"

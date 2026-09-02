@@ -30,7 +30,7 @@ const routes = [
     path: '/books',
     name: 'books',
     component: BooksView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, roles: [ROLES.ADMIN, ROLES.MEMBER] }
   },
   {
     path: '/borrowings',

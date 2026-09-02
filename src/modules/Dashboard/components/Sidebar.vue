@@ -57,7 +57,7 @@
             <img :src="homeIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.home') }}</span>
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!authStore.isGuest">
           <router-link to="/books" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.books') : null">
             <img :src="bookIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.books') }}</span>
           </router-link>
