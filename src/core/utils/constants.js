@@ -11,7 +11,8 @@ export const API_ROUTES = Object.freeze({
   RESET_PASSWORD:  '/reset-password',
   MEMBERS:    '/members',
   BOOKS:      '/books',
-  BORROWINGS: '/borrowings'
+  BORROWINGS: '/borrowings',
+  AI_CHAT:    '/ai/chat'
 })
 
 export const ROLES = Object.freeze({

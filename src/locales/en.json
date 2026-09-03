@@ -104,6 +104,7 @@
       "books": "Books",
       "members": "Members",
       "borrowings": "Borrowings",
+      "aiChat": "AI Assistant",
       "collapse": "Collapse sidebar",
       "expand": "Expand sidebar"
     },
@@ -378,6 +379,32 @@
     "borrowAgain": {
       "success": "Book borrowed again successfully.",
       "failed": "Failed to borrow this book again. Please try again."
+    }
+  },
+  "aiChat": {
+    "hero": {
+      "badge": "Assistant",
+      "title": "Ask the Archive's Assistant",
+      "text": "Ask about books, borrowing, or anything else on your mind — the assistant is here to help."
+    },
+    "newChat": "New Chat",
+    "fab": {
+      "label": "Chat with the Assistant"
+    },
+    "empty": {
+      "title": "Start a conversation",
+      "text": "Ask a question and the assistant will help you find your way around the archive.",
+      "suggestions": {
+        "s1": "What books are available right now?",
+        "s2": "How can I borrow a book?",
+        "s3": "Tell me about this library"
+      }
+    },
+    "composer": {
+      "placeholder": "Type your message..."
+    },
+    "error": {
+      "sendFailed": "Failed to send your message. Please try again."
     }
   }
 }
