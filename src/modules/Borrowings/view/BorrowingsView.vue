@@ -44,6 +44,10 @@
           </button>
         </div>
 
+        <div v-if="store.meta" class="d-flex justify-content-end mb-3" :dir="dir">
+          <PageSizeSelect v-model="perPage" @update:modelValue="onPerPageChange" />
+        </div>
+
         <div v-if="store.loading" class="row g-3 mb-4" :dir="dir">
           <div class="col-12" v-for="n in 4" :key="n">
             <div class="skeleton-row rounded-4"></div>
@@ -107,19 +111,13 @@
           </BaseCard>
         </template>
 
-        <nav v-if="store.meta && store.meta.last_page > 1" class="d-flex justify-content-center mb-4" :dir="dir">
-          <ul class="pagination pagination-custom mb-0">
-            <li class="page-item" :class="{ disabled: store.meta.current_page <= 1 }">
-              <button type="button" class="page-link" @click="goToPage(store.meta.current_page - 1)">{{ t('borrowings.pagination.previous') }}</button>
-            </li>
-            <li class="page-item disabled d-flex align-items-center px-3">
-              <span class="small text-muted">{{ t('borrowings.pagination.pageInfo', { current: store.meta.current_page, total: store.meta.last_page }) }}</span>
-            </li>
-            <li class="page-item" :class="{ disabled: store.meta.current_page >= store.meta.last_page }">
-              <button type="button" class="page-link" @click="goToPage(store.meta.current_page + 1)">{{ t('borrowings.pagination.next') }}</button>
-            </li>
-          </ul>
-        </nav>
+        <Pagination
+          v-if="store.meta"
+          class="mb-4"
+          :current-page="store.meta.current_page"
+          :last-page="store.meta.last_page"
+          @update:page="goToPage"
+        />
 
         <Footer />
       </div>
@@ -162,6 +160,8 @@ import Footer from '../../Dashboard/components/Footer.vue'
 import BaseCard from '@/core/components/BaseCard.vue'
 import BaseButton from '@/core/components/BaseButton.vue'
 import ConfirmModal from '@/core/components/ConfirmModal.vue'
+import Pagination from '@/core/components/Pagination.vue'
+import PageSizeSelect from '@/core/components/PageSizeSelect.vue'
 import { useAuthStore } from '@/modules/Auth/store/authStore'
 import BorrowingRow from '../components/BorrowingRow.vue'
 import BorrowingCard from '../components/BorrowingCard.vue'
@@ -181,6 +181,7 @@ const isAdmin = computed(() => authStore.isAdmin)
 const store = useBorrowingsStore()
 
 const activeTab = ref('all')
+const perPage = ref(10)
 const tabs = computed(() => [
   { key: 'all',      label: t('borrowings.tabs.all') },
   { key: 'active',   label: t('borrowings.tabs.active') },
@@ -201,12 +202,17 @@ function showPageAlert(type, message) {
 }
 
 function loadBorrowings(page = 1) {
-  store.fetchBorrowings({ page })
+  store.fetchBorrowings({ page, per_page: perPage.value })
 }
 
 function goToPage(page) {
   if (page < 1 || (store.meta && page > store.meta.last_page)) return
   loadBorrowings(page)
+}
+
+function onPerPageChange(val) {
+  perPage.value = val
+  loadBorrowings(1)
 }
 
 const editModal = reactive({ show: false, borrowing: null })
@@ -403,22 +409,6 @@ onMounted(() => loadBorrowings(1))
 
 .borrowings-table tbody tr:last-child td {
   border-bottom: none;
-}
-
-.pagination-custom .page-link {
-  color: var(--navy);
-  border-color: var(--border);
-}
-
-.pagination-custom .page-item.disabled .page-link {
-  color: var(--text-muted);
-  background-color: transparent;
-  border-color: var(--border);
-}
-
-.pagination-custom .page-link:hover {
-  background-color: var(--gold-tint);
-  color: var(--navy);
 }
 
 .alert-fade-enter-active { transition: opacity 0.3s, transform 0.3s; }

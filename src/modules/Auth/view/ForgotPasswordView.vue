@@ -23,9 +23,15 @@
         </button>
       </div>
 
-      <router-link :to="{ name: 'auth' }" class="back-link d-inline-flex align-items-center gap-1 mb-3">
-        <img :src="chevronLeftSvg" alt="" width="16" height="16" class="back-icon" />
-        <span>{{ t('auth.forgotPassword.backToLogin') }}</span>
+      <router-link
+        :to="{ name: 'auth' }"
+        class="back-link d-inline-flex align-items-center justify-content-center mb-3"
+        :aria-label="t('auth.forgotPassword.backToLogin')"
+        :title="t('auth.forgotPassword.backToLogin')"
+      >
+        <svg class="back-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
       </router-link>
 
       <template v-if="!submitted">
@@ -90,7 +96,6 @@ import { useAuthStore } from '../store/authStore'
 
 import bookOpenSvg     from '../../../assets/icons/book-open.svg'
 import languageSvg     from '../../../assets/icons/language.svg'
-import chevronLeftSvg  from '../../../assets/icons/chevron-left.svg'
 import mailSvg         from '../../../assets/icons/mail.svg'
 import checkCircleSvg  from '../../../assets/icons/check-circle.svg'
 import alertCircleSvg  from '../../../assets/icons/alert-circle.svg'
@@ -214,14 +219,15 @@ function resend() {
 .lang-label { line-height: 1; }
 
 .back-link {
-  color: var(--text-muted);
+  color: var(--gold);
   text-decoration: none;
-  font-size: 0.83rem;
-  font-weight: 500;
-  transition: color 0.2s;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: color 0.2s, background-color 0.2s;
 }
-.back-link:hover { color: var(--navy); }
-.back-icon { opacity: 0.6; }
+.back-link:hover { color: var(--mustard); background-color: rgba(212,175,55,0.12); }
+.back-icon { display: block; }
 [dir="rtl"] .back-icon { transform: scaleX(-1); }
 
 .auth-heading {

@@ -3,6 +3,14 @@
     "name": "Library System",
     "tagline": "Knowledge Management System"
   },
+  "common": {
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {current} of {total}",
+      "itemsPerPage": "Items per page"
+    }
+  },
   "auth": {
     "signin": {
       "heading": "Login to your Account",
@@ -183,11 +191,6 @@
       "confirm": "Delete",
       "success": "Member deleted successfully.",
       "failed": "Failed to delete member. Please try again."
-    },
-    "pagination": {
-      "previous": "Previous",
-      "next": "Next",
-      "pageInfo": "Page {current} of {total}"
     }
   },
   "books": {
@@ -296,11 +299,6 @@
         "deleted": "Deleted",
         "restored": "Restored"
       }
-    },
-    "pagination": {
-      "previous": "Previous",
-      "next": "Next",
-      "pageInfo": "Page {current} of {total}"
     }
   },
   "borrowings": {
@@ -380,11 +378,6 @@
     "borrowAgain": {
       "success": "Book borrowed again successfully.",
       "failed": "Failed to borrow this book again. Please try again."
-    },
-    "pagination": {
-      "previous": "Previous",
-      "next": "Next",
-      "pageInfo": "Page {current} of {total}"
     }
   }
 }

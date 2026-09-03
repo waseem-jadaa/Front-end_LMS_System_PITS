@@ -28,10 +28,10 @@ export const useDashboardStore = defineStore('dashboard', () => {
     }
   }
 
-  async function fetchBooks() {
+  async function fetchBooks(params = {}) {
     booksLoading.value = true
     try {
-      const res = await dashboardService.getRecentBooks({ page: 1 })
+      const res = await dashboardService.getRecentBooks({ page: 1, ...params })
       books.value = extractList(res).list.slice(0, 3)
     } catch {
       books.value = []

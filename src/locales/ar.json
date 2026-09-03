@@ -3,6 +3,14 @@
     "name": "نظام المكتبة",
     "tagline": "نظام إدارة المعرفة"
   },
+  "common": {
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "pageInfo": "صفحة {current} من {total}",
+      "itemsPerPage": "عدد العناصر في الصفحة"
+    }
+  },
   "auth": {
     "signin": {
       "heading": "تسجيل الدخول إلى حسابك",
@@ -183,11 +191,6 @@
       "confirm": "حذف",
       "success": "تم حذف العضو بنجاح.",
       "failed": "فشل حذف العضو. يرجى المحاولة مرة أخرى."
-    },
-    "pagination": {
-      "previous": "السابق",
-      "next": "التالي",
-      "pageInfo": "صفحة {current} من {total}"
     }
   },
   "books": {
@@ -296,11 +299,6 @@
         "deleted": "حذف",
         "restored": "استعادة"
       }
-    },
-    "pagination": {
-      "previous": "السابق",
-      "next": "التالي",
-      "pageInfo": "صفحة {current} من {total}"
     }
   },
   "borrowings": {
@@ -380,11 +378,6 @@
     "borrowAgain": {
       "success": "تمت استعارة الكتاب مرة أخرى بنجاح.",
       "failed": "فشلت استعارة الكتاب مرة أخرى. يرجى المحاولة مرة أخرى."
-    },
-    "pagination": {
-      "previous": "السابق",
-      "next": "التالي",
-      "pageInfo": "صفحة {current} من {total}"
     }
   }
 }

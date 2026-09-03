@@ -66,6 +66,10 @@
           </div>
         </div>
 
+        <div v-if="store.meta" class="d-flex justify-content-end mb-3" :dir="dir">
+          <PageSizeSelect v-model="perPage" @update:modelValue="onPerPageChange" />
+        </div>
+
         <div v-if="store.loading" class="row g-4 mb-4">
           <div class="col-12 col-sm-6 col-lg-4" v-for="n in 6" :key="n">
             <div class="skeleton-card rounded-4"></div>
@@ -100,19 +104,13 @@
           </div>
         </div>
 
-        <nav v-if="store.meta && store.meta.last_page > 1" class="d-flex justify-content-center mb-4" :dir="dir">
-          <ul class="pagination pagination-custom mb-0">
-            <li class="page-item" :class="{ disabled: store.meta.current_page <= 1 }">
-              <button type="button" class="page-link" @click="goToPage(store.meta.current_page - 1)">{{ t('books.pagination.previous') }}</button>
-            </li>
-            <li class="page-item disabled d-flex align-items-center px-3">
-              <span class="small text-muted">{{ t('books.pagination.pageInfo', { current: store.meta.current_page, total: store.meta.last_page }) }}</span>
-            </li>
-            <li class="page-item" :class="{ disabled: store.meta.current_page >= store.meta.last_page }">
-              <button type="button" class="page-link" @click="goToPage(store.meta.current_page + 1)">{{ t('books.pagination.next') }}</button>
-            </li>
-          </ul>
-        </nav>
+        <Pagination
+          v-if="store.meta"
+          class="mb-4"
+          :current-page="store.meta.current_page"
+          :last-page="store.meta.last_page"
+          @update:page="goToPage"
+        />
 
         <Footer />
       </div>
@@ -157,6 +155,8 @@ import Footer from '../../Dashboard/components/Footer.vue'
 import BaseInput from '@/core/components/BaseInput.vue'
 import BaseButton from '@/core/components/BaseButton.vue'
 import ConfirmModal from '@/core/components/ConfirmModal.vue'
+import Pagination from '@/core/components/Pagination.vue'
+import PageSizeSelect from '@/core/components/PageSizeSelect.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/Auth/store/authStore'
 import BookCard from '../components/BookCard.vue'
@@ -181,6 +181,7 @@ const borrowingsStore = useBorrowingsStore()
 
 const searchQuery = ref('')
 const showDeleted = ref(false)
+const perPage = ref(10)
 
 const emptyTitle = computed(() => {
   if (showDeleted.value) return t('books.empty.titleDeleted')
@@ -204,15 +205,20 @@ function showPageAlert(type, message) {
 }
 
 function loadBooks(page = 1) {
-  const params = { search: searchQuery.value || undefined, page }
+  const params = { search: searchQuery.value || undefined, page, per_page: perPage.value }
   if (showDeleted.value) params.trashed = 'only'
   store.fetchBooks(params)
 }
 
-const onSearchInput = debounce(() => loadBooks(1), 350)
+const onSearchInput = debounce(() => loadBooks(1), 1500)
 
 function setShowDeleted(val) {
   showDeleted.value = val
+  loadBooks(1)
+}
+
+function onPerPageChange(val) {
+  perPage.value = val
   loadBooks(1)
 }
 
@@ -438,22 +444,6 @@ onMounted(() => {
 
 .empty-icon {
   filter: invert(14%) sepia(23%) saturate(1200%) hue-rotate(165deg);
-}
-
-.pagination-custom .page-link {
-  color: var(--navy);
-  border-color: var(--border);
-}
-
-.pagination-custom .page-item.disabled .page-link {
-  color: var(--text-muted);
-  background-color: transparent;
-  border-color: var(--border);
-}
-
-.pagination-custom .page-link:hover {
-  background-color: var(--gold-tint);
-  color: var(--navy);
 }
 
 .alert-fade-enter-active { transition: opacity 0.3s, transform 0.3s; }
