@@ -156,6 +156,7 @@
       "retry": "Retry"
     },
     "form": {
+      "createTitle": "Add Member",
       "editTitle": "Edit Member",
       "viewTitle": "Member Details",
       "fields": {
@@ -170,6 +171,8 @@
         "emailInvalid": "Enter a valid email address"
       },
       "messages": {
+        "createSuccess": "Member added successfully. An email with their password has been sent.",
+        "createFailed": "Failed to add member. Please try again.",
         "updateSuccess": "Member updated successfully.",
         "updateFailed": "Failed to update member. Please try again."
       }
@@ -328,6 +331,7 @@
       "actions": "Actions"
     },
     "actions": {
+      "addMember": "Add Member",
       "edit": "Edit due date",
       "delete": "Delete",
       "return": "Return",
