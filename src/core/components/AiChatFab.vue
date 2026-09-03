@@ -2,6 +2,7 @@
   <button
     type="button"
     class="ai-chat-fab d-flex align-items-center justify-content-center"
+    :dir="dir"
     :title="t('aiChat.fab.label')"
     :aria-label="t('aiChat.fab.label')"
     @click="goToChat"
@@ -12,11 +13,13 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import aiChatIcon from '../../assets/icons/ai-chat.svg'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
 const router = useRouter()
 
 function goToChat() {
