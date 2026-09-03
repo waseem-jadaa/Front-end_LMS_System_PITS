@@ -17,19 +17,56 @@
         <span class="text-warning">📜</span> Dar Al-Hikma
       </a>
 
-      <div class="d-none d-md-flex flex-grow-1 mx-auto search-wrap">
-        <div class="input-group">
-          <span class="input-group-text bg-white border-end-0 search-icon-wrap">
-            <img :src="searchIcon" alt="" width="18" height="18" />
-          </span>
-          <input
-            type="text"
-            class="form-control border-start-0 shadow-none search-input"
-            :placeholder="t('dashboard.header.searchPlaceholder')"
-            :dir="dir"
-          />
+      <template v-if="isDashboard && !authStore.isGuest">
+        <div class="d-none d-md-flex flex-grow-1 mx-auto search-wrap">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0 search-icon-wrap">
+              <img :src="searchIcon" alt="" width="18" height="18" />
+            </span>
+            <input
+              type="text"
+              v-model="searchQuery"
+              class="form-control border-start-0 shadow-none search-input"
+              :placeholder="t('dashboard.header.searchPlaceholder')"
+              :dir="dir"
+              @input="onSearchInput"
+            />
+          </div>
         </div>
-      </div>
+
+        <div class="d-flex d-md-none align-items-center" :class="{ 'flex-grow-1': mobileSearchOpen }">
+          <button
+            v-if="!mobileSearchOpen"
+            type="button"
+            class="btn p-2 rounded-circle border-0 d-flex align-items-center justify-content-center icon-btn flex-shrink-0"
+            :title="t('dashboard.header.searchPlaceholder')"
+            @click="openMobileSearch"
+          >
+            <img :src="searchIcon" alt="" width="18" height="18" />
+          </button>
+
+          <div v-else class="input-group mobile-search-input">
+            <span class="input-group-text bg-white border-end-0 search-icon-wrap">
+              <img :src="searchIcon" alt="" width="16" height="16" />
+            </span>
+            <input
+              ref="mobileSearchInputRef"
+              type="text"
+              v-model="searchQuery"
+              class="form-control border-start-0 border-end-0 shadow-none search-input"
+              :placeholder="t('dashboard.header.searchPlaceholder')"
+              :dir="dir"
+              @input="onSearchInput"
+            />
+            <button type="button" class="btn border-start-0 search-close-btn" @click="closeMobileSearch">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </template>
 
       <div class="d-flex align-items-center gap-2 gap-md-3 ms-auto flex-shrink-0">
         <div class="dropdown">
@@ -88,10 +125,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, nextTick, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '../../Auth/store/authStore'
+import { useDashboardStore } from '../store/dashboardStore'
+import { debounce } from '@/core/utils/helpers'
 import searchIcon from '../../../assets/icons/search.svg'
 import langIcon from '../../../assets/icons/language.svg'
 import menuIcon from '../../../assets/icons/menu.svg'
@@ -99,7 +138,31 @@ import menuIcon from '../../../assets/icons/menu.svg'
 const { t, locale } = useI18n()
 const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
+const dashboardStore = useDashboardStore()
+
+const isDashboard = computed(() => route.name === 'dashboard')
+
+const searchQuery = ref('')
+const onSearchInput = debounce(() => {
+  dashboardStore.fetchBooks({ search: searchQuery.value || undefined })
+}, 1500)
+
+const mobileSearchOpen = ref(false)
+const mobileSearchInputRef = ref(null)
+
+async function openMobileSearch() {
+  mobileSearchOpen.value = true
+  await nextTick()
+  mobileSearchInputRef.value?.focus()
+}
+
+function closeMobileSearch() {
+  mobileSearchOpen.value = false
+  searchQuery.value = ''
+  dashboardStore.fetchBooks()
+}
 
 function setLocale(lang) {
   locale.value = lang
@@ -139,6 +202,7 @@ const handleLogout = async () => {
 
 .search-wrap {
   max-width: 480px;
+  min-width: 0;
 }
 
 .search-icon-wrap {
@@ -148,6 +212,23 @@ const handleLogout = async () => {
 .search-input {
   border-color: var(--border);
   background-color: #fff;
+}
+
+.mobile-search-input {
+  width: 100%;
+}
+
+.search-close-btn {
+  border-color: var(--border);
+  background-color: #fff;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.search-close-btn:hover {
+  color: var(--navy);
+  background-color: var(--gold-tint);
 }
 
 .icon-btn {

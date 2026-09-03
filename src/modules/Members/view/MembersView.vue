@@ -35,6 +35,10 @@
           />
         </div>
 
+        <div v-if="store.meta" class="d-flex justify-content-end mb-3" :dir="dir">
+          <PageSizeSelect v-model="perPage" @update:modelValue="onPerPageChange" />
+        </div>
+
         <div v-if="store.loading" class="row g-3 mb-4" :dir="dir">
           <div class="col-12" v-for="n in 4" :key="n">
             <div class="skeleton-row rounded-4"></div>
@@ -91,19 +95,13 @@
           </BaseCard>
         </template>
 
-        <nav v-if="store.meta && store.meta.last_page > 1" class="d-flex justify-content-center mb-4" :dir="dir">
-          <ul class="pagination pagination-custom mb-0">
-            <li class="page-item" :class="{ disabled: store.meta.current_page <= 1 }">
-              <button type="button" class="page-link" @click="goToPage(store.meta.current_page - 1)">{{ t('members.pagination.previous') }}</button>
-            </li>
-            <li class="page-item disabled d-flex align-items-center px-3">
-              <span class="small text-muted">{{ t('members.pagination.pageInfo', { current: store.meta.current_page, total: store.meta.last_page }) }}</span>
-            </li>
-            <li class="page-item" :class="{ disabled: store.meta.current_page >= store.meta.last_page }">
-              <button type="button" class="page-link" @click="goToPage(store.meta.current_page + 1)">{{ t('members.pagination.next') }}</button>
-            </li>
-          </ul>
-        </nav>
+        <Pagination
+          v-if="store.meta"
+          class="mb-4"
+          :current-page="store.meta.current_page"
+          :last-page="store.meta.last_page"
+          @update:page="goToPage"
+        />
 
         <Footer />
       </div>
@@ -143,6 +141,8 @@ import MemberRow from '../components/MemberRow.vue'
 import MemberCard from '../components/MemberCard.vue'
 import MemberFormModal from '../components/MemberFormModal.vue'
 import ConfirmModal from '@/core/components/ConfirmModal.vue'
+import Pagination from '@/core/components/Pagination.vue'
+import PageSizeSelect from '@/core/components/PageSizeSelect.vue'
 import { useMembersStore } from '../store/membersStore'
 import { debounce } from '@/core/utils/helpers'
 import searchIcon      from '../../../assets/icons/search.svg'
@@ -155,6 +155,7 @@ const dir = computed(() => locale.value === 'ar' ? 'rtl' : 'ltr')
 const store = useMembersStore()
 
 const searchQuery = ref('')
+const perPage = ref(10)
 
 const pageAlert = reactive({ show: false, type: 'success', message: '' })
 function showPageAlert(type, message) {
@@ -164,14 +165,19 @@ function showPageAlert(type, message) {
 }
 
 function loadMembers(page = 1) {
-  store.fetchMembers({ search: searchQuery.value || undefined, page })
+  store.fetchMembers({ search: searchQuery.value || undefined, page, per_page: perPage.value })
 }
 
-const onSearchInput = debounce(() => loadMembers(1), 350)
+const onSearchInput = debounce(() => loadMembers(1), 1200)
 
 function goToPage(page) {
   if (page < 1 || (store.meta && page > store.meta.last_page)) return
   loadMembers(page)
+}
+
+function onPerPageChange(val) {
+  perPage.value = val
+  loadMembers(1)
 }
 
 const formModal = reactive({ show: false, mode: 'view', member: null })
@@ -317,22 +323,6 @@ onMounted(() => loadMembers(1))
 
 .members-table tbody tr:last-child td {
   border-bottom: none;
-}
-
-.pagination-custom .page-link {
-  color: var(--navy);
-  border-color: var(--border);
-}
-
-.pagination-custom .page-item.disabled .page-link {
-  color: var(--text-muted);
-  background-color: transparent;
-  border-color: var(--border);
-}
-
-.pagination-custom .page-link:hover {
-  background-color: var(--gold-tint);
-  color: var(--navy);
 }
 
 .alert-fade-enter-active { transition: opacity 0.3s, transform 0.3s; }
