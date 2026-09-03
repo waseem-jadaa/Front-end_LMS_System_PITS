@@ -72,6 +72,11 @@
             <img :src="fileTextIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.borrowings') }}</span>
           </router-link>
         </li>
+        <li class="nav-item" v-if="!authStore.isGuest">
+          <router-link to="/ai-chat" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.aiChat') : null">
+            <img :src="aiChatIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.aiChat') }}</span>
+          </router-link>
+        </li>
       </ul>
     </div>
   </div>
@@ -85,6 +90,7 @@ import homeIcon      from '../../../assets/icons/home.svg'
 import bookIcon       from '../../../assets/icons/book.svg'
 import usersIcon      from '../../../assets/icons/users.svg'
 import fileTextIcon   from '../../../assets/icons/file-text.svg'
+import aiChatIcon     from '../../../assets/icons/ai-chat.svg'
 import chevronIcon    from '../../../assets/icons/chevron-left.svg'
 import langIcon       from '../../../assets/icons/language.svg'
 

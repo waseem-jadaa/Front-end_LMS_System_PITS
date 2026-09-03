@@ -6,6 +6,7 @@ import ResetPasswordView from '../modules/Auth/view/ResetPasswordView.vue'
 import MembersView from '../modules/Members/view/MembersView.vue'
 import BooksView from '../modules/Books/view/BooksView.vue'
 import BorrowingsView from '../modules/Borrowings/view/BorrowingsView.vue'
+import AiChatView from '../modules/AiChat/view/AiChatView.vue'
 import { useAuthStore } from '../modules/Auth/store/authStore'
 import { ROLES } from '../core/utils/constants'
 
@@ -50,6 +51,12 @@ const routes = [
     path: '/borrowings',
     name: 'borrowings',
     component: BorrowingsView,
+    meta: { requiresAuth: true, roles: [ROLES.ADMIN, ROLES.MEMBER] }
+  },
+  {
+    path: '/ai-chat',
+    name: 'ai-chat',
+    component: AiChatView,
     meta: { requiresAuth: true, roles: [ROLES.ADMIN, ROLES.MEMBER] }
   }
 ]
