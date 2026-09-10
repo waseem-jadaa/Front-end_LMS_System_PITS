@@ -12,7 +12,7 @@ export const API_ROUTES = Object.freeze({
   MEMBERS:    '/members',
   BOOKS:      '/books',
   BORROWINGS: '/borrowings',
-  AI_CHAT:    '/v1/chat'
+  AI_CHAT:    '/ai/chat'
 })
 
 export const ROLES = Object.freeze({
