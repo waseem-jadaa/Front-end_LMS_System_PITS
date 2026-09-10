@@ -73,7 +73,7 @@
           </router-link>
         </li>
         <li class="nav-item" v-if="!authStore.isGuest">
-          <router-link to="/ai-chat" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.aiChat') : null">
+          <router-link to="/ai/chat" class="nav-link text-white py-3 px-4 rounded-pill d-flex align-items-center transition-all" :title="collapsed ? t('dashboard.sidebar.aiChat') : null">
             <img :src="aiChatIcon" alt="" width="20" height="20" class="nav-icon" /> <span class="fw-medium nav-label">{{ t('dashboard.sidebar.aiChat') }}</span>
           </router-link>
         </li>
