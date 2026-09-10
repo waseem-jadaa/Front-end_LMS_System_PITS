@@ -54,6 +54,7 @@ const routes = [
     meta: { requiresAuth: true, roles: [ROLES.ADMIN, ROLES.MEMBER] }
   },
   {
+
     path: '/ai/chat',
     name: 'ai-chat',
     component: AiChatView,
